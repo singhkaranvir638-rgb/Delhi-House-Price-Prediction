@@ -69,7 +69,7 @@
             left: 20px;
             z-index: 20;
             background: rgba(255, 255, 255, 0.9);
-            padding: 12px 16px;
+            padding: 16px;
             border-radius: 15px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
             font-family: 'Poppins', sans-serif;
@@ -84,6 +84,11 @@
         .personal-badge:hover {
             transform: translateY(-3px);
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .personal-badge strong {
+            font-size: 1.1rem;
+            color: #2c3e50;
         }
 
         .personal-badge a {
@@ -276,8 +281,8 @@
             .personal-badge {
                 top: 10px;
                 left: 10px;
-                font-size: 0.8rem;
-                padding: 10px;
+                font-size: 0.85rem;
+                padding: 12px;
             }
         }
 
@@ -286,7 +291,10 @@
             h2 { font-size: 1.8rem; }
             .btn-primary { font-size: 1.1rem; padding: 16px; }
             .personal-badge {
-                display: none; /* Hide on very small screens to avoid clutter */
+                position: static;
+                margin-bottom: 20px;
+                align-self: flex-start;
+                box-shadow: 0 3px 10px rgba(0,0,0,0.15);
             }
         }
 
@@ -305,8 +313,9 @@
     <div class="personal-badge">
         <strong>Karanvir Dhaliwal</strong><br>
         <small>ML Engineer & Developer</small><br>
-        <a href="tel:+917814715810">📞 +91-78147-15810</a>
-        <a href="mailto:karanvirdhaliwal@example.com">✉️ Email Me</a>
+        <a href="tel:+916280215810">📞 +91-62802-15810</a>
+        <a href="mailto:singhkaranvir638@gmail.com">✉️ singhkaranvir638@gmail.com</a>
+        <a href="/about" style="margin-top: 10px; font-weight: 600;">📁 About Project & Training File</a>
     </div>
 
     <!-- Time-based overlays -->
@@ -387,9 +396,8 @@
     </main>
 
     <footer class="footer" role="contentinfo">
-        <p>✨ Created by <strong>Karanvir Dhaliwal</strong> ✨</p>
-        <p>📞 Contact: <a href="tel:+917814715810">+91-78147-15810</a></p>
-        <strong><a href="/about"> About Project and Training File</a></strong>
+        <p>✨ Created with ❤️ by Karanvir Dhaliwal ✨</p>
+        <!-- Removed contact info since it's now at the top -->
     </footer>
 
     <script>
