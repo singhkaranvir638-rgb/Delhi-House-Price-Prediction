@@ -62,6 +62,43 @@
             opacity: 0.2;
         }
 
+        /* ========== PERSONAL BADGE (TOP LEFT) ========== */
+        .personal-badge {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 20;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 12px 16px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.9rem;
+            color: #333;
+            text-align: left;
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .personal-badge:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .personal-badge a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+            display: block;
+            margin-top: 4px;
+        }
+
+        .personal-badge a:hover {
+            text-decoration: underline;
+            color: #764ba2;
+        }
+
         /* ========== GLASS CONTAINER ========== */
         .glass-effect {
             background: var(--glass-bg);
@@ -236,12 +273,21 @@
             .glass-effect { padding: 25px; margin: 10px; }
             .form-control { font-size: 1rem; padding: 12px; }
             .footer { margin-top: 30px; }
+            .personal-badge {
+                top: 10px;
+                left: 10px;
+                font-size: 0.8rem;
+                padding: 10px;
+            }
         }
 
         @media (max-width: 480px) {
             body { padding: 10px; }
             h2 { font-size: 1.8rem; }
             .btn-primary { font-size: 1.1rem; padding: 16px; }
+            .personal-badge {
+                display: none; /* Hide on very small screens to avoid clutter */
+            }
         }
 
         /* ========== ACCESSIBILITY ========== */
@@ -255,6 +301,14 @@
     </style>
 </head>
 <body>
+    <!-- Personal Info Badge (Top Left) -->
+    <div class="personal-badge">
+        <strong>Karanvir Dhaliwal</strong><br>
+        <small>ML Engineer & Developer</small><br>
+        <a href="tel:+917814715810">📞 +91-78147-15810</a>
+        <a href="mailto:karanvirdhaliwal@example.com">✉️ Email Me</a>
+    </div>
+
     <!-- Time-based overlays -->
     <div id="sunriseOverlay" class="overlay" style="background: linear-gradient(45deg, rgba(255, 180, 0, 0.3), rgba(255, 120, 0, 0.2));"></div>
     <div id="sunsetOverlay" class="overlay" style="background: linear-gradient(45deg, rgba(255, 94, 77, 0.3), rgba(255, 154, 0, 0.2));"></div>
@@ -335,7 +389,7 @@
     <footer class="footer" role="contentinfo">
         <p>✨ Created by <strong>Karanvir Dhaliwal</strong> ✨</p>
         <p>📞 Contact: <a href="tel:+917814715810">+91-78147-15810</a></p>
-      <strong>  <a href="/about"> About Project and Training File</a></strong>
+        <strong><a href="/about"> About Project and Training File</a></strong>
     </footer>
 
     <script>
