@@ -5,13 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>House Price Prediction</title>
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
-        /* Dynamic background based on time of day */
+        /* Beautiful animated background */
         body {
-            background: url('https://media.giphy.com/media/l0HlG3PR1Kio9KsOc/giphy.gif') no-repeat center center fixed;
-            background-size: cover;
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
             height: 100vh;
             display: flex;
             justify-content: center;
@@ -19,60 +20,94 @@
             font-family: 'Poppins', sans-serif;
             color: #fff;
             margin: 0;
-            overflow-x: hidden;
-            transition: all 0.5s ease;
+            padding: 20px;
+            box-sizing: border-box;
+            overflow-x: auto;
         }
 
-        /* Sunrise/Sunset backgrounds */
-        body.sunrise {
-            background: url('https://media.giphy.com/media/3o6Zt0YNKUUbLU7HAY/giphy.gif') no-repeat center center fixed;
-            background-size: cover;
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
-        body.sunset {
-            background: url('https://media.giphy.com/media/YoJrMvqOkMu5O/giphy.gif') no-repeat center center fixed;
-            background-size: cover;
+        /* Time-based overlay effects */
+        body.sunrise::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(45deg, rgba(255, 180, 0, 0.3), rgba(255, 120, 0, 0.2));
+            pointer-events: none;
+            z-index: 1;
         }
 
-        body.night {
-            background: url('https://media.giphy.com/media/xTiTnxpQ3ghPiB2Hp6/giphy.gif') no-repeat center center fixed;
-            background-size: cover;
+        body.sunset::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(45deg, rgba(255, 94, 77, 0.3), rgba(255, 154, 0, 0.2));
+            pointer-events: none;
+            z-index: 1;
         }
 
-        /* Create Glass Effect on Form Background */
+        body.night::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(45deg, rgba(25, 25, 112, 0.4), rgba(72, 61, 139, 0.3));
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Floating particles in background */
+        .particle {
+            position: fixed;
+            width: 6px;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 50%;
+            pointer-events: none;
+            animation: float 8s linear infinite;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) scale(0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-20vh) scale(1) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Glass Effect Form Container */
         .glass-effect {
-            background: rgba(255, 255, 255, 0.25);
-            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 25px;
             padding: 40px;
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
             width: 100%;
-            max-width: 850px;
+            max-width: 900px;
             color: #333;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.3);
             position: relative;
-            overflow: hidden;
+            z-index: 10;
+            margin: 0 auto;
         }
 
-        /* Animated gradient border */
+        /* Animated rainbow border */
         .glass-effect::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            border-radius: 20px;
-            padding: 2px;
-            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #ffc93c);
+            top: -3px; left: -3px; right: -3px; bottom: -3px;
+            border-radius: 28px;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #ffc93c, #ff6b6b);
             background-size: 300% 300%;
-            animation: gradientShift 4s ease infinite;
-            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            mask-composite: xor;
-            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            opacity: 0.7;
+            animation: gradientShift 6s ease infinite;
+            z-index: -1;
         }
 
         @keyframes gradientShift {
@@ -80,98 +115,103 @@
             50% { background-position: 100% 50%; }
         }
 
-        /* Form Header with glow effect */
+        /* Form Header */
         h2 {
-            font-size: 2.8rem;
-            font-weight: 600;
+            font-size: 3rem;
+            font-weight: 700;
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 40px;
             color: #fff;
-            text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+            text-shadow: 0 0 30px rgba(255, 255, 255, 0.8);
             cursor: pointer;
             transition: all 0.3s ease;
             position: relative;
-            z-index: 10;
+            z-index: 20;
         }
 
-        /* Easter Egg: Click title for surprise */
         h2:hover {
             transform: scale(1.05);
-            text-shadow: 0 0 30px rgba(255, 255, 255, 0.8);
+            text-shadow: 0 0 40px rgba(255, 255, 255, 1);
         }
 
-        /* Form Group Styling */
+        /* Form Groups - FIXED VISIBILITY */
         .form-group {
-            margin-bottom: 25px;
+            margin-bottom: 30px;
             position: relative;
-        }
-
-        .form-group label {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: #fff;
-            margin-bottom: 10px;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
-        }
-
-        .form-group input {
-            font-size: 1.2rem;
-            padding: 15px;
-            border-radius: 12px;
             width: 100%;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            margin-bottom: 5px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            background: rgba(255, 255, 255, 0.9);
+            display: block !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+        }
+
+        /* Labels - Dark and Visible */
+        .form-group label {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #1a1a1a !important;
+            margin-bottom: 10px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 10px 20px;
+            border-radius: 12px;
+            display: block !important;
+            border: 3px solid #333;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            width: fit-content;
+            text-shadow: none;
+        }
+
+        /* Input Fields */
+        .form-group input {
+            font-size: 1.3rem !important;
+            padding: 18px !important;
+            border-radius: 15px;
+            width: 100% !important;
+            border: 3px solid rgba(255, 255, 255, 0.4);
+            margin-bottom: 10px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+            background: rgba(255, 255, 255, 0.95) !important;
             transition: all 0.3s ease;
+            display: block !important;
+            visibility: visible !important;
+            color: #333 !important;
         }
 
         .form-group input:focus {
             outline: none;
-            box-shadow: 0 4px 20px rgba(0, 128, 255, 0.4);
+            box-shadow: 0 6px 25px rgba(0, 128, 255, 0.5);
             border-color: #4ecdc4;
-            transform: translateY(-2px);
+            transform: translateY(-3px);
+            background: rgba(255, 255, 255, 1) !important;
         }
 
-        /* Easter Egg: Sparkle effect on focus */
-        .form-group input:focus::before {
-            content: '✨';
-            position: absolute;
-            right: 10px;
-            top: 50%;
-            transform: translateY(-50%);
-        }
-
-        /* Button Styling with hover effects */
+        /* Button Styling */
         .btn-primary {
             background: linear-gradient(45deg, #667eea 0%, #764ba2 100%);
             border: none;
-            padding: 18px;
-            font-size: 1.3rem;
-            font-weight: 600;
-            border-radius: 12px;
+            padding: 20px;
+            font-size: 1.4rem;
+            font-weight: 700;
+            border-radius: 15px;
             width: 100%;
             transition: all 0.3s ease;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
             position: relative;
             overflow: hidden;
+            color: white;
         }
 
         .btn-primary::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-            transition: left 0.5s;
+            top: 0; left: -100%; width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: left 0.6s;
         }
 
         .btn-primary:hover {
             background: linear-gradient(45deg, #764ba2 0%, #667eea 100%);
-            transform: translateY(-3px);
-            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.4);
+            transform: translateY(-4px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
         }
 
         .btn-primary:hover::before {
@@ -180,28 +220,29 @@
 
         /* Prediction Text */
         h3 {
-            font-size: 1.8rem;
+            font-size: 2rem;
             font-weight: 600;
             text-align: center;
             color: #fff;
             margin-top: 30px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.6);
             position: relative;
-            z-index: 10;
+            z-index: 20;
         }
 
-        /* Footer Section Styling */
+        /* Footer */
         .footer {
-            position: absolute;
+            position: fixed;
             bottom: 20px;
             left: 20px;
             color: #fff;
-            font-size: 1rem;
-            background: rgba(0, 0, 0, 0.3);
-            padding: 15px;
-            border-radius: 10px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            font-size: 1.1rem;
+            background: rgba(0, 0, 0, 0.4);
+            padding: 20px;
+            border-radius: 15px;
+            backdrop-filter: blur(15px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            z-index: 100;
         }
 
         .footer a {
@@ -216,117 +257,111 @@
             text-decoration: underline;
         }
 
-        /* Hidden Easter Egg Messages */
+        /* Easter Egg Modal */
         .easter-egg-message {
             position: fixed;
-            top: 50%;
-            left: 50%;
+            top: 50%; left: 50%;
             transform: translate(-50%, -50%);
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(255, 255, 255, 0.98);
             color: #333;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
             z-index: 1000;
             display: none;
             text-align: center;
-            max-width: 400px;
-            backdrop-filter: blur(10px);
+            max-width: 500px;
+            backdrop-filter: blur(15px);
+            border: 3px solid rgba(255, 255, 255, 0.5);
         }
 
-        /* Floating particles effect */
-        .particle {
-            position: fixed;
-            width: 4px;
-            height: 4px;
-            background: rgba(255, 255, 255, 0.8);
-            border-radius: 50%;
-            pointer-events: none;
-            opacity: 0;
-            animation: float 6s linear infinite;
-        }
-
-        @keyframes float {
-            0% {
-                transform: translateY(100vh) scale(0);
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(-10vh) scale(1);
-                opacity: 0;
-            }
-        }
-
-        /* Responsive Layout */
+        /* Responsive */
         @media (max-width: 768px) {
-            h2 { font-size: 2.2rem; }
-            .form-group input { font-size: 1rem; }
+            h2 { font-size: 2.5rem; }
+            .form-group input { font-size: 1.1rem !important; padding: 15px !important; }
             .glass-effect { padding: 25px; margin: 10px; }
+            .footer { position: relative; margin-top: 20px; }
         }
 
-        /* Secret developer mode styling */
+        /* Developer Mode */
         body.developer-mode {
-            animation: rainbow 2s linear infinite;
+            animation: rainbow 3s linear infinite;
         }
 
         @keyframes rainbow {
-            0% { filter: hue-rotate(0deg); }
-            100% { filter: hue-rotate(360deg); }
+            0% { filter: hue-rotate(0deg) saturate(1.5); }
+            100% { filter: hue-rotate(360deg) saturate(1.5); }
         }
     </style>
 </head>
 <body>
+    <!-- Background particles -->
+    <div id="particles"></div>
+
     <div class="glass-effect">
         <h2 onclick="showEasterEgg()" title="Click me for a surprise! 🎉">🏠 House Price Prediction ✨</h2>
+        
         <form method="POST" action="/predict" onsubmit="return validateForm()">
             <div class="form-group">
                 <label for="bedrooms">🛏️ Bedrooms</label>
-                <input type="number" class="form-control" id="bedrooms" name="bedrooms" required min="1" max="20">
+                <input type="number" class="form-control" id="bedrooms" name="bedrooms" required min="1" max="20" placeholder="Enter number of bedrooms">
             </div>
+            
             <div class="form-group">
                 <label for="bathrooms">🚿 Bathrooms</label>
-                <input type="number" class="form-control" id="bathrooms" name="bathrooms" required min="0.5" step="0.5" max="15">
+                <input type="number" class="form-control" id="bathrooms" name="bathrooms" required min="0.5" step="0.5" max="15" placeholder="Enter number of bathrooms">
             </div>
+            
             <div class="form-group">
                 <label for="sqft_living">📐 Sqft Living</label>
-                <input type="number" class="form-control" id="sqft_living" name="sqft_living" required min="200" max="20000">
+                <input type="number" class="form-control" id="sqft_living" name="sqft_living" required min="200" max="20000" placeholder="Living area in square feet">
             </div>
+            
             <div class="form-group">
                 <label for="sqft_lot">🌿 Sqft Lot</label>
-                <input type="number" class="form-control" id="sqft_lot" name="sqft_lot" required min="500" max="200000">
+                <input type="number" class="form-control" id="sqft_lot" name="sqft_lot" required min="500" max="200000" placeholder="Lot size in square feet">
             </div>
+            
             <div class="form-group">
                 <label for="floors">🏢 Floors</label>
-                <input type="number" class="form-control" id="floors" name="floors" required min="1" max="5" step="0.5">
+                <input type="number" class="form-control" id="floors" name="floors" required min="1" max="5" step="0.5" placeholder="Number of floors">
             </div>
+            
             <div class="form-group">
                 <label for="waterfront">🌊 Waterfront (1 = Yes, 0 = No)</label>
-                <input type="number" class="form-control" id="waterfront" name="waterfront" required min="0" max="1">
+                <input type="number" class="form-control" id="waterfront" name="waterfront" required min="0" max="1" placeholder="1 for waterfront, 0 for no waterfront">
             </div>
+            
             <div class="form-group">
                 <label for="view">👀 View (0-4 scale)</label>
-                <input type="number" class="form-control" id="view" name="view" required min="0" max="4">
+                <input type="number" class="form-control" id="view" name="view" required min="0" max="4" placeholder="View rating 0-4">
             </div>
+            
             <div class="form-group">
                 <label for="condition">⭐ Condition (1-5 scale)</label>
-                <input type="number" class="form-control" id="condition" name="condition" required min="1" max="5">
+                <input type="number" class="form-control" id="condition" name="condition" required min="1" max="5" placeholder="Condition rating 1-5">
             </div>
+            
             <div class="form-group">
                 <label for="sqft_above">⬆️ Sqft Above Ground</label>
-                <input type="number" class="form-control" id="sqft_above" name="sqft_above" required min="200" max="15000">
+                <input type="number" class="form-control" id="sqft_above" name="sqft_above" required min="200" max="15000" placeholder="Above ground area in sqft">
             </div>
+            
             <div class="form-group">
                 <label for="sqft_basement">🏠 Sqft Basement</label>
-                <input type="number" class="form-control" id="sqft_basement" name="sqft_basement" required min="0" max="5000">
+                <input type="number" class="form-control" id="sqft_basement" name="sqft_basement" required min="0" max="5000" placeholder="Basement area in sqft">
             </div>
+            
             <div class="form-group">
                 <label for="yr_built">📅 Year Built</label>
-                <input type="number" class="form-control" id="yr_built" name="yr_built" required min="1800" max="2025">
+                <input type="number" class="form-control" id="yr_built" name="yr_built" required min="1800" max="2025" placeholder="Year the house was built">
             </div>
+            
             <div class="form-group">
                 <label for="yr_renovated">🔨 Year Renovated (0 if never)</label>
-                <input type="number" class="form-control" id="yr_renovated" name="yr_renovated" required min="0" max="2025">
+                <input type="number" class="form-control" id="yr_renovated" name="yr_renovated" required min="0" max="2025" placeholder="Year renovated (0 if never)">
             </div>
+            
             <button type="submit" class="btn btn-primary" onmouseover="createSparkles()">
                 💰 Predict My Dream House Price! 🎯
             </button>
@@ -335,14 +370,14 @@
         <h3 id="prediction">{{ prediction_text }}</h3>
     </div>
 
-    <!-- Enhanced Footer -->
+    <!-- Footer -->
     <div class="footer">
         <p>✨ Created by <strong>Karanvir Dhaliwal</strong> ✨</p>
         <p>📞 Contact: <a href="tel:+917814715810">+91-78147-15810</a></p>
-        <p><small>💡 Try typing "konami" in any input for a surprise!</small></p>
+        <p><small>💡 Try typing "konami" for a surprise!</small></p>
     </div>
 
-    <!-- Hidden Easter Egg Message -->
+    <!-- Easter Egg Modal -->
     <div class="easter-egg-message" id="easterEggModal">
         <h4>🎉 You found the Easter Egg! 🎉</h4>
         <p>Karanvir's secret message: <br><strong>"May your code be bug-free and your coffee be strong! ☕"</strong></p>
@@ -351,21 +386,41 @@
     </div>
 
     <script>
-        // Set dynamic background based on time of day
+        // Create floating particles
+        function createBackgroundParticles() {
+            const particleContainer = document.getElementById('particles');
+            for (let i = 0; i < 20; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * window.innerWidth + 'px';
+                particle.style.animationDelay = Math.random() * 8 + 's';
+                particle.style.animationDuration = (Math.random() * 4 + 6) + 's';
+                particleContainer.appendChild(particle);
+                
+                setTimeout(() => {
+                    particle.remove();
+                    createBackgroundParticles();
+                }, 8000);
+            }
+        }
+
+        // Time-based background effects
         function setTimeBasedBackground() {
             const hour = new Date().getHours();
             const body = document.body;
             
+            body.classList.remove('sunrise', 'sunset', 'night');
+            
             if (hour >= 5 && hour < 11) {
-                body.className = 'sunrise';
+                body.classList.add('sunrise');
             } else if (hour >= 17 && hour < 20) {
-                body.className = 'sunset';
+                body.classList.add('sunset');
             } else if (hour >= 20 || hour < 5) {
-                body.className = 'night';
+                body.classList.add('night');
             }
         }
 
-        // Easter Egg: Show surprise message
+        // Easter Eggs
         function showEasterEgg() {
             document.getElementById('easterEggModal').style.display = 'block';
             createFireworks();
@@ -375,7 +430,7 @@
             document.getElementById('easterEggModal').style.display = 'none';
         }
 
-        // Easter Egg: Konami code detection
+        // Konami code detection
         let konamiCode = [];
         const targetSequence = 'konami';
         
@@ -395,86 +450,101 @@
             }
         });
 
-        // Create floating particles
+        // Create sparkles on button hover
         function createSparkles() {
-            for (let i = 0; i < 5; i++) {
+            for (let i = 0; i < 8; i++) {
                 setTimeout(() => {
                     const particle = document.createElement('div');
-                    particle.className = 'particle';
+                    particle.style.position = 'fixed';
+                    particle.style.width = '4px';
+                    particle.style.height = '4px';
+                    particle.style.background = 'rgba(255, 255, 255, 0.9)';
+                    particle.style.borderRadius = '50%';
                     particle.style.left = Math.random() * window.innerWidth + 'px';
-                    particle.style.animationDelay = Math.random() * 2 + 's';
+                    particle.style.top = Math.random() * window.innerHeight + 'px';
+                    particle.style.pointerEvents = 'none';
+                    particle.style.zIndex = '999';
+                    particle.style.animation = 'float 3s linear infinite';
                     document.body.appendChild(particle);
                     
                     setTimeout(() => {
                         particle.remove();
-                    }, 6000);
-                }, i * 100);
+                    }, 3000);
+                }, i * 50);
             }
         }
 
-        // Create fireworks effect
+        // Create fireworks
         function createFireworks() {
-            for (let i = 0; i < 15; i++) {
+            for (let i = 0; i < 20; i++) {
                 setTimeout(() => {
                     const firework = document.createElement('div');
                     firework.style.position = 'fixed';
-                    firework.style.width = '6px';
-                    firework.style.height = '6px';
-                    firework.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 60%)`;
+                    firework.style.width = '8px';
+                    firework.style.height = '8px';
+                    firework.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 70%)`;
                     firework.style.borderRadius = '50%';
                     firework.style.left = Math.random() * window.innerWidth + 'px';
                     firework.style.top = Math.random() * window.innerHeight + 'px';
                     firework.style.pointerEvents = 'none';
                     firework.style.zIndex = '999';
+                    firework.style.boxShadow = '0 0 10px currentColor';
                     document.body.appendChild(firework);
                     
                     setTimeout(() => {
                         firework.remove();
-                    }, 2000);
-                }, i * 50);
+                    }, 2500);
+                }, i * 75);
             }
         }
 
-        // Form validation with funny messages
+        // Form validation with humor
         function validateForm() {
             const bedrooms = document.getElementById('bedrooms').value;
             const bathrooms = document.getElementById('bathrooms').value;
+            const sqftLiving = document.getElementById('sqft_living').value;
             
-            if (bedrooms > bathrooms * 3) {
-                alert('🤔 That\'s a lot of bedrooms per bathroom! Your guests might form a queue! 🚻');
+            if (bedrooms > bathrooms * 4) {
+                alert('🤔 That\'s a lot of bedrooms per bathroom! Your guests might form a very long queue! 🚻');
                 return false;
             }
             
-            if (bedrooms > 10) {
-                alert('🏰 Wow! That\'s practically a castle! Are you sure you\'re not buying Hogwarts? ✨');
+            if (bedrooms > 15) {
+                alert('🏰 Wow! That\'s practically a palace! Are you buying Buckingham Palace? 👑');
+            }
+            
+            if (sqftLiving < 300) {
+                alert('🏠 That\'s quite cozy! Are you sure it\'s not a dollhouse? 🪆');
             }
             
             return true;
         }
 
-        // Initialize on page load
+        // Initialize everything
         window.addEventListener('load', () => {
             setTimeBasedBackground();
+            createBackgroundParticles();
             
-            // Easter Egg: Secret message in console
+            // Console Easter Egg
             console.log(`
-    🎨 ===============================
-    🏠 House Price Prediction App
+    🎨 ===============================================
+    🏠 House Price Prediction App - Enhanced Edition
     ✨ Created by Karanvir Dhaliwal
     📧 Contact: +91-78147-15810
     
-    🎁 Easter Eggs Found:
-    • Click the title for a surprise!
-    • Type "konami" for developer mode
-    • Hover the predict button for sparkles
-    • Check the time-based backgrounds
+    🎁 Easter Eggs Available:
+    • Click the title for Karanvir's message!
+    • Type "konami" anywhere for rainbow mode 🌈
+    • Hover the predict button for sparkles ✨
+    • Beautiful time-based background changes 🌅
+    • Floating particles animation 💫
     
-    💡 "Code is like humor. When you have to explain it, it's bad." - Cory House
-    ===============================
+    💡 "First, solve the problem. Then, write the code." - John Johnson
+    ===============================================
             `);
         });
 
-        // Update background every minute
+        // Update time-based effects
         setInterval(setTimeBasedBackground, 60000);
     </script>
 </body>
