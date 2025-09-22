@@ -10,7 +10,7 @@
     <style>
         /* Body Styling */
         body {
-            background-image: url('https://your-image-url-here.gif'); /* Replace with your GIF URL */
+            background-image: url('https://your-image-url-here.gif'); /* Replace with a sunset/sunrise gif */
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -23,14 +23,14 @@
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* Subtle text shadow for contrast */
         }
 
-        /* Frosted Glass Effect */
-        .container {
-            background: rgba(255, 255, 255, 0.2); /* Slightly more transparent */
+        /* Apply Glass Effect to Background */
+        .bg-glass-effect {
+            background: rgba(255, 255, 255, 0.3); /* Slightly transparent white background */
             border-radius: 15px;
             padding: 40px;
-            backdrop-filter: blur(12px); /* Increased blur for a smoother glass effect */
-            -webkit-backdrop-filter: blur(12px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px); /* Glass effect with blur */
+            -webkit-backdrop-filter: blur(10px); /* For Safari */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Shadow for depth */
             width: 100%;
             max-width: 650px;
             margin-top: 50px;
@@ -87,7 +87,7 @@
 
         /* Responsive Design */
         @media (max-width: 768px) {
-            .container {
+            .bg-glass-effect {
                 padding: 20px;
             }
 
@@ -103,7 +103,7 @@
 </head>
 <body>
 
-    <div class="container">
+    <div class="bg-glass-effect">
         <h2>House Price Prediction</h2>
         <form method="POST" action="/predict">
             <div class="form-group">
