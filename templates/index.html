@@ -8,9 +8,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
-        /* Body Styling with Background GIF */
+        /* Dynamic background based on time of day */
         body {
-            background: url('https://media.giphy.com/media/12XDYs1h6NxLkA/giphy.gif') no-repeat center center fixed;
+            background: url('https://media.giphy.com/media/l0HlG3PR1Kio9KsOc/giphy.gif') no-repeat center center fixed;
             background-size: cover;
             height: 100vh;
             display: flex;
@@ -20,172 +20,462 @@
             color: #fff;
             margin: 0;
             overflow-x: hidden;
+            transition: all 0.5s ease;
+        }
+
+        /* Sunrise/Sunset backgrounds */
+        body.sunrise {
+            background: url('https://media.giphy.com/media/3o6Zt0YNKUUbLU7HAY/giphy.gif') no-repeat center center fixed;
+            background-size: cover;
+        }
+
+        body.sunset {
+            background: url('https://media.giphy.com/media/YoJrMvqOkMu5O/giphy.gif') no-repeat center center fixed;
+            background-size: cover;
+        }
+
+        body.night {
+            background: url('https://media.giphy.com/media/xTiTnxpQ3ghPiB2Hp6/giphy.gif') no-repeat center center fixed;
+            background-size: cover;
         }
 
         /* Create Glass Effect on Form Background */
         .glass-effect {
-            background: rgba(255, 255, 255, 0.3); /* Semi-transparent background */
-            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.25);
+            border-radius: 20px;
             padding: 40px;
-            backdrop-filter: blur(10px); /* Glass effect */
-            -webkit-backdrop-filter: blur(10px); /* Safari support */
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
             width: 100%;
-            max-width: 800px;
+            max-width: 850px;
             color: #333;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+            overflow: hidden;
         }
 
-        /* Form Header */
+        /* Animated gradient border */
+        .glass-effect::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 20px;
+            padding: 2px;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #ffc93c);
+            background-size: 300% 300%;
+            animation: gradientShift 4s ease infinite;
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask-composite: xor;
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            opacity: 0.7;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        /* Form Header with glow effect */
         h2 {
-            font-size: 2.5rem;
+            font-size: 2.8rem;
             font-weight: 600;
             text-align: center;
             margin-bottom: 30px;
             color: #fff;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Easter Egg: Click title for surprise */
+        h2:hover {
+            transform: scale(1.05);
+            text-shadow: 0 0 30px rgba(255, 255, 255, 0.8);
         }
 
         /* Form Group Styling */
+        .form-group {
+            margin-bottom: 25px;
+            position: relative;
+        }
+
         .form-group label {
             font-size: 1.1rem;
             font-weight: 600;
             color: #fff;
             margin-bottom: 10px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
         }
 
         .form-group input {
             font-size: 1.2rem;
             padding: 15px;
-            border-radius: 10px;
+            border-radius: 12px;
             width: 100%;
-            border: none;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            margin-bottom: 5px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            background: rgba(255, 255, 255, 0.9);
+            transition: all 0.3s ease;
         }
 
         .form-group input:focus {
             outline: none;
-            box-shadow: 0 4px 12px rgba(0, 128, 255, 0.6);
+            box-shadow: 0 4px 20px rgba(0, 128, 255, 0.4);
+            border-color: #4ecdc4;
+            transform: translateY(-2px);
         }
 
-        /* Button Styling */
+        /* Easter Egg: Sparkle effect on focus */
+        .form-group input:focus::before {
+            content: '✨';
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        /* Button Styling with hover effects */
         .btn-primary {
-            background-color: #007bff;
+            background: linear-gradient(45deg, #667eea 0%, #764ba2 100%);
             border: none;
-            padding: 15px;
-            font-size: 1.2rem;
+            padding: 18px;
+            font-size: 1.3rem;
             font-weight: 600;
-            border-radius: 10px;
+            border-radius: 12px;
             width: 100%;
-            transition: background-color 0.3s ease;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
         }
 
         .btn-primary:hover {
-            background-color: #0056b3;
-            cursor: pointer;
+            background: linear-gradient(45deg, #764ba2 0%, #667eea 100%);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.4);
+        }
+
+        .btn-primary:hover::before {
+            left: 100%;
         }
 
         /* Prediction Text */
         h3 {
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             font-weight: 600;
             text-align: center;
             color: #fff;
             margin-top: 30px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            position: relative;
+            z-index: 10;
         }
 
-        /* Footer Section Styling (Bottom-left position) */
+        /* Footer Section Styling */
         .footer {
             position: absolute;
-            bottom: 10px;
-            left: 10px;
+            bottom: 20px;
+            left: 20px;
             color: #fff;
             font-size: 1rem;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         .footer a {
-            color: #00e5ff;
+            color: #4ecdc4;
             text-decoration: none;
             font-weight: 600;
+            transition: color 0.3s ease;
         }
 
         .footer a:hover {
+            color: #45b7d1;
             text-decoration: underline;
+        }
+
+        /* Hidden Easter Egg Messages */
+        .easter-egg-message {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(255, 255, 255, 0.95);
+            color: #333;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            display: none;
+            text-align: center;
+            max-width: 400px;
+            backdrop-filter: blur(10px);
+        }
+
+        /* Floating particles effect */
+        .particle {
+            position: fixed;
+            width: 4px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            pointer-events: none;
+            opacity: 0;
+            animation: float 6s linear infinite;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) scale(0);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-10vh) scale(1);
+                opacity: 0;
+            }
         }
 
         /* Responsive Layout */
         @media (max-width: 768px) {
-            h2 {
-                font-size: 2rem;
-            }
-            .form-group input {
-                font-size: 1rem;
-            }
+            h2 { font-size: 2.2rem; }
+            .form-group input { font-size: 1rem; }
+            .glass-effect { padding: 25px; margin: 10px; }
+        }
+
+        /* Secret developer mode styling */
+        body.developer-mode {
+            animation: rainbow 2s linear infinite;
+        }
+
+        @keyframes rainbow {
+            0% { filter: hue-rotate(0deg); }
+            100% { filter: hue-rotate(360deg); }
         }
     </style>
 </head>
 <body>
     <div class="glass-effect">
-        <h2>House Price Prediction</h2>
-        <form method="POST" action="/predict">
+        <h2 onclick="showEasterEgg()" title="Click me for a surprise! 🎉">🏠 House Price Prediction ✨</h2>
+        <form method="POST" action="/predict" onsubmit="return validateForm()">
             <div class="form-group">
-                <label for="bedrooms">Bedrooms</label>
-                <input type="number" class="form-control" id="bedrooms" name="bedrooms" required>
+                <label for="bedrooms">🛏️ Bedrooms</label>
+                <input type="number" class="form-control" id="bedrooms" name="bedrooms" required min="1" max="20">
             </div>
             <div class="form-group">
-                <label for="bathrooms">Bathrooms</label>
-                <input type="number" class="form-control" id="bathrooms" name="bathrooms" required>
+                <label for="bathrooms">🚿 Bathrooms</label>
+                <input type="number" class="form-control" id="bathrooms" name="bathrooms" required min="0.5" step="0.5" max="15">
             </div>
             <div class="form-group">
-                <label for="sqft_living">Sqft Living</label>
-                <input type="number" class="form-control" id="sqft_living" name="sqft_living" required>
+                <label for="sqft_living">📐 Sqft Living</label>
+                <input type="number" class="form-control" id="sqft_living" name="sqft_living" required min="200" max="20000">
             </div>
             <div class="form-group">
-                <label for="sqft_lot">Sqft Lot</label>
-                <input type="number" class="form-control" id="sqft_lot" name="sqft_lot" required>
+                <label for="sqft_lot">🌿 Sqft Lot</label>
+                <input type="number" class="form-control" id="sqft_lot" name="sqft_lot" required min="500" max="200000">
             </div>
             <div class="form-group">
-                <label for="floors">Floors</label>
-                <input type="number" class="form-control" id="floors" name="floors" required>
+                <label for="floors">🏢 Floors</label>
+                <input type="number" class="form-control" id="floors" name="floors" required min="1" max="5" step="0.5">
             </div>
             <div class="form-group">
-                <label for="waterfront">Waterfront (1 = Yes, 0 = No)</label>
-                <input type="number" class="form-control" id="waterfront" name="waterfront" required>
+                <label for="waterfront">🌊 Waterfront (1 = Yes, 0 = No)</label>
+                <input type="number" class="form-control" id="waterfront" name="waterfront" required min="0" max="1">
             </div>
             <div class="form-group">
-                <label for="view">View</label>
-                <input type="number" class="form-control" id="view" name="view" required>
+                <label for="view">👀 View (0-4 scale)</label>
+                <input type="number" class="form-control" id="view" name="view" required min="0" max="4">
             </div>
             <div class="form-group">
-                <label for="condition">Condition</label>
-                <input type="number" class="form-control" id="condition" name="condition" required>
+                <label for="condition">⭐ Condition (1-5 scale)</label>
+                <input type="number" class="form-control" id="condition" name="condition" required min="1" max="5">
             </div>
             <div class="form-group">
-                <label for="sqft_above">Sqft Above</label>
-                <input type="number" class="form-control" id="sqft_above" name="sqft_above" required>
+                <label for="sqft_above">⬆️ Sqft Above Ground</label>
+                <input type="number" class="form-control" id="sqft_above" name="sqft_above" required min="200" max="15000">
             </div>
             <div class="form-group">
-                <label for="sqft_basement">Sqft Basement</label>
-                <input type="number" class="form-control" id="sqft_basement" name="sqft_basement" required>
+                <label for="sqft_basement">🏠 Sqft Basement</label>
+                <input type="number" class="form-control" id="sqft_basement" name="sqft_basement" required min="0" max="5000">
             </div>
             <div class="form-group">
-                <label for="yr_built">Year Built</label>
-                <input type="number" class="form-control" id="yr_built" name="yr_built" required>
+                <label for="yr_built">📅 Year Built</label>
+                <input type="number" class="form-control" id="yr_built" name="yr_built" required min="1800" max="2025">
             </div>
             <div class="form-group">
-                <label for="yr_renovated">Year Renovated</label>
-                <input type="number" class="form-control" id="yr_renovated" name="yr_renovated" required>
+                <label for="yr_renovated">🔨 Year Renovated (0 if never)</label>
+                <input type="number" class="form-control" id="yr_renovated" name="yr_renovated" required min="0" max="2025">
             </div>
-            <button type="submit" class="btn btn-primary">Predict Price</button>
+            <button type="submit" class="btn btn-primary" onmouseover="createSparkles()">
+                💰 Predict My Dream House Price! 🎯
+            </button>
         </form>
 
-        <h3>{{ prediction_text }}</h3>
+        <h3 id="prediction">{{ prediction_text }}</h3>
     </div>
 
-    <!-- Footer Section with Name and Contact Info (Bottom-left) -->
+    <!-- Enhanced Footer -->
     <div class="footer">
-        <p>Created by <strong>Karanvir Dhaliwal</strong></p>
-        <p>Contact: <a href="tel:+******15810">*****15810</a></p>
+        <p>✨ Created by <strong>Karanvir Dhaliwal</strong> ✨</p>
+        <p>📞 Contact: <a href="tel:+917814715810">+91-78147-15810</a></p>
+        <p><small>💡 Try typing "konami" in any input for a surprise!</small></p>
     </div>
 
+    <!-- Hidden Easter Egg Message -->
+    <div class="easter-egg-message" id="easterEggModal">
+        <h4>🎉 You found the Easter Egg! 🎉</h4>
+        <p>Karanvir's secret message: <br><strong>"May your code be bug-free and your coffee be strong! ☕"</strong></p>
+        <p>🏠 Pro tip: This app can predict house prices, but it can't predict when you'll find your dream home! 😄</p>
+        <button onclick="closeEasterEgg()" class="btn btn-primary btn-sm">Close</button>
+    </div>
+
+    <script>
+        // Set dynamic background based on time of day
+        function setTimeBasedBackground() {
+            const hour = new Date().getHours();
+            const body = document.body;
+            
+            if (hour >= 5 && hour < 11) {
+                body.className = 'sunrise';
+            } else if (hour >= 17 && hour < 20) {
+                body.className = 'sunset';
+            } else if (hour >= 20 || hour < 5) {
+                body.className = 'night';
+            }
+        }
+
+        // Easter Egg: Show surprise message
+        function showEasterEgg() {
+            document.getElementById('easterEggModal').style.display = 'block';
+            createFireworks();
+        }
+
+        function closeEasterEgg() {
+            document.getElementById('easterEggModal').style.display = 'none';
+        }
+
+        // Easter Egg: Konami code detection
+        let konamiCode = [];
+        const targetSequence = 'konami';
+        
+        document.addEventListener('keydown', function(e) {
+            konamiCode.push(e.key.toLowerCase());
+            if (konamiCode.length > targetSequence.length) {
+                konamiCode.shift();
+            }
+            
+            if (konamiCode.join('').includes(targetSequence)) {
+                document.body.classList.add('developer-mode');
+                setTimeout(() => {
+                    alert('🎊 Developer Mode Activated! 🎊\n\nYou\'ve unlocked the secret rainbow mode!\nKaranvir says: "You\'re clearly a person of culture!" 🌈');
+                    document.body.classList.remove('developer-mode');
+                }, 100);
+                konamiCode = [];
+            }
+        });
+
+        // Create floating particles
+        function createSparkles() {
+            for (let i = 0; i < 5; i++) {
+                setTimeout(() => {
+                    const particle = document.createElement('div');
+                    particle.className = 'particle';
+                    particle.style.left = Math.random() * window.innerWidth + 'px';
+                    particle.style.animationDelay = Math.random() * 2 + 's';
+                    document.body.appendChild(particle);
+                    
+                    setTimeout(() => {
+                        particle.remove();
+                    }, 6000);
+                }, i * 100);
+            }
+        }
+
+        // Create fireworks effect
+        function createFireworks() {
+            for (let i = 0; i < 15; i++) {
+                setTimeout(() => {
+                    const firework = document.createElement('div');
+                    firework.style.position = 'fixed';
+                    firework.style.width = '6px';
+                    firework.style.height = '6px';
+                    firework.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 60%)`;
+                    firework.style.borderRadius = '50%';
+                    firework.style.left = Math.random() * window.innerWidth + 'px';
+                    firework.style.top = Math.random() * window.innerHeight + 'px';
+                    firework.style.pointerEvents = 'none';
+                    firework.style.zIndex = '999';
+                    document.body.appendChild(firework);
+                    
+                    setTimeout(() => {
+                        firework.remove();
+                    }, 2000);
+                }, i * 50);
+            }
+        }
+
+        // Form validation with funny messages
+        function validateForm() {
+            const bedrooms = document.getElementById('bedrooms').value;
+            const bathrooms = document.getElementById('bathrooms').value;
+            
+            if (bedrooms > bathrooms * 3) {
+                alert('🤔 That\'s a lot of bedrooms per bathroom! Your guests might form a queue! 🚻');
+                return false;
+            }
+            
+            if (bedrooms > 10) {
+                alert('🏰 Wow! That\'s practically a castle! Are you sure you\'re not buying Hogwarts? ✨');
+            }
+            
+            return true;
+        }
+
+        // Initialize on page load
+        window.addEventListener('load', () => {
+            setTimeBasedBackground();
+            
+            // Easter Egg: Secret message in console
+            console.log(`
+    🎨 ===============================
+    🏠 House Price Prediction App
+    ✨ Created by Karanvir Dhaliwal
+    📧 Contact: +91-78147-15810
+    
+    🎁 Easter Eggs Found:
+    • Click the title for a surprise!
+    • Type "konami" for developer mode
+    • Hover the predict button for sparkles
+    • Check the time-based backgrounds
+    
+    💡 "Code is like humor. When you have to explain it, it's bad." - Cory House
+    ===============================
+            `);
+        });
+
+        // Update background every minute
+        setInterval(setTimeBasedBackground, 60000);
+    </script>
 </body>
 </html>
