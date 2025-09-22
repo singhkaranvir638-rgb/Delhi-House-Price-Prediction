@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>House Price Prediction</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h2 class="mt-5">House Price Prediction</h2>
+        <form method="POST" action="/predict">
+            <div class="form-group">
+                <label for="bedrooms">Bedrooms</label>
+                <input type="text" class="form-control" id="bedrooms" name="bedrooms" required>
+            </div>
+            <div class="form-group">
+                <label for="bathrooms">Bathrooms</label>
+                <input type="text" class="form-control" id="bathrooms" name="bathrooms" required>
+            </div>
+            <div class="form-group">
+                <label for="sqft_living">Sqft Living</label>
+                <input type="text" class="form-control" id="sqft_living" name="sqft_living" required>
+            </div>
+            <div class="form-group">
+                <label for="sqft_lot">Sqft Lot</label>
+                <input type="text" class="form-control" id="sqft_lot" name="sqft_lot" required>
+            </div>
+            <div class="form-group">
+                <label for="floors">Floors</label>
+                <input type="text" class="form-control" id="floors" name="floors" required>
+            </div>
+            <div class="form-group">
+                <label for="waterfront">Waterfront (1 = Yes, 0 = No)</label>
+                <input type="text" class="form-control" id="waterfront" name="waterfront" required>
+            </div>
+            <div class="form-group">
+                <label for="view">View</label>
+                <input type="text" class="form-control" id="view" name="view" required>
+            </div>
+            <div class="form-group">
+                <label for="condition">Condition</label>
+                <input type="text" class="form-control" id="condition" name="condition" required>
+            </div>
+            <div class="form-group">
+                <label for="sqft_above">Sqft Above</label>
+                <input type="text" class="form-control" id="sqft_above" name="sqft_above" required>
+            </div>
+            <div class="form-group">
+                <label for="sqft_basement">Sqft Basement</label>
+                <input type="text" class="form-control" id="sqft_basement" name="sqft_basement" required>
+            </div>
+            <div class="form-group">
+                <label for="yr_built">Year Built</label>
+                <input type="text" class="form-control" id="yr_built" name="yr_built" required>
+            </div>
+            <div class="form-group">
+                <label for="yr_renovated">Year Renovated</label>
+                <input type="text" class="form-control" id="yr_renovated" name="yr_renovated" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Predict Price</button>
+        </form>
+
+        <h3 class="mt-4">{{ prediction_text }}</h3>
+    </div>
+</body>
+</html>
