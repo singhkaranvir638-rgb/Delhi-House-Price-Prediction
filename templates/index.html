@@ -4,73 +4,77 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>House Price Prediction</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         /* Body Styling */
         body {
-            background-image: url('https://images.unsplash.com/photo-1582639036514-5083ac60c014?crop=entropy&cs=tinysrgb&fit=max&ixid=MnwzNjUyOXwwfDF8c2VhY3J8MHx8aG91c2V8ZW58MHx8fHwxNjU2MTgyNjc2&ixlib=rb-1.2.1&q=80&w=1080'); /* Replace with your desired background image URL */
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
+            background: linear-gradient(to right, #ff7e5f, #feb47b); /* Gradient background for a warm feel */
             height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            color: white;
             font-family: 'Poppins', sans-serif;
+            color: #fff;
             margin: 0;
             overflow-x: hidden;
         }
 
         /* Create Glass Effect on Form Background */
         .glass-effect {
-            background: rgba(255, 255, 255, 0.2); /* Semi-transparent white */
+            background: rgba(255, 255, 255, 0.2); /* Semi-transparent background */
             border-radius: 15px;
             padding: 40px;
-            backdrop-filter: blur(10px); /* This creates the glass effect */
-            -webkit-backdrop-filter: blur(10px); /* Safari support */
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* Shadow for depth */
+            backdrop-filter: blur(15px); /* Glass effect */
+            -webkit-backdrop-filter: blur(15px); /* Safari support */
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
             width: 100%;
             max-width: 800px;
-            overflow: hidden;
+            color: #333;
         }
 
-        /* Title Styling */
+        /* Form Header */
         h2 {
-            font-family: 'Poppins', sans-serif;
-            font-weight: 600;
             font-size: 2.5rem;
+            font-weight: 600;
             text-align: center;
             margin-bottom: 30px;
-            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.4); /* Dark shadow for contrast */
+            color: #fff;
         }
 
-        /* Form Inputs Styling */
+        /* Form Group Styling */
+        .form-group label {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+
         .form-group input {
-            font-family: 'Poppins', sans-serif;
             font-size: 1.2rem;
+            padding: 15px;
             border-radius: 10px;
-            padding: 12px;
+            width: 100%;
             border: none;
             margin-bottom: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
 
-        label {
-            font-weight: 600;
-            font-size: 1.1rem;
+        .form-group input:focus {
+            outline: none;
+            box-shadow: 0 4px 12px rgba(0, 128, 255, 0.6);
         }
 
         /* Button Styling */
         .btn-primary {
-            font-family: 'Poppins', sans-serif;
-            font-weight: 600;
-            width: 100%;
-            padding: 12px;
-            border-radius: 10px;
             background-color: #007bff;
             border: none;
+            padding: 15px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            border-radius: 10px;
+            width: 100%;
             transition: background-color 0.3s ease;
         }
 
@@ -81,29 +85,36 @@
 
         /* Prediction Text */
         h3 {
-            font-family: 'Poppins', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 600;
             text-align: center;
+            color: #fff;
             margin-top: 30px;
-            font-size: 1.3rem;
-            font-weight: 400;
         }
 
-        /* Scrollable Layout */
-        .form-container {
-            max-height: 90vh;
-            overflow-y: auto;
+        /* Footer Section Styling */
+        .footer {
+            text-align: center;
+            color: #fff;
+            font-size: 1rem;
+            margin-top: 50px;
         }
 
-        /* Responsive Design */
+        .footer a {
+            color: #00e5ff;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive Layout */
         @media (max-width: 768px) {
-            .glass-effect {
-                padding: 20px;
-            }
-
             h2 {
                 font-size: 2rem;
             }
-
             .form-group input {
                 font-size: 1rem;
             }
@@ -111,62 +122,67 @@
     </style>
 </head>
 <body>
-
-    <div class="glass-effect form-container">
+    <div class="glass-effect">
         <h2>House Price Prediction</h2>
         <form method="POST" action="/predict">
             <div class="form-group">
                 <label for="bedrooms">Bedrooms</label>
-                <input type="text" class="form-control" id="bedrooms" name="bedrooms" required>
+                <input type="number" class="form-control" id="bedrooms" name="bedrooms" required>
             </div>
             <div class="form-group">
                 <label for="bathrooms">Bathrooms</label>
-                <input type="text" class="form-control" id="bathrooms" name="bathrooms" required>
+                <input type="number" class="form-control" id="bathrooms" name="bathrooms" required>
             </div>
             <div class="form-group">
                 <label for="sqft_living">Sqft Living</label>
-                <input type="text" class="form-control" id="sqft_living" name="sqft_living" required>
+                <input type="number" class="form-control" id="sqft_living" name="sqft_living" required>
             </div>
             <div class="form-group">
                 <label for="sqft_lot">Sqft Lot</label>
-                <input type="text" class="form-control" id="sqft_lot" name="sqft_lot" required>
+                <input type="number" class="form-control" id="sqft_lot" name="sqft_lot" required>
             </div>
             <div class="form-group">
                 <label for="floors">Floors</label>
-                <input type="text" class="form-control" id="floors" name="floors" required>
+                <input type="number" class="form-control" id="floors" name="floors" required>
             </div>
             <div class="form-group">
                 <label for="waterfront">Waterfront (1 = Yes, 0 = No)</label>
-                <input type="text" class="form-control" id="waterfront" name="waterfront" required>
+                <input type="number" class="form-control" id="waterfront" name="waterfront" required>
             </div>
             <div class="form-group">
                 <label for="view">View</label>
-                <input type="text" class="form-control" id="view" name="view" required>
+                <input type="number" class="form-control" id="view" name="view" required>
             </div>
             <div class="form-group">
                 <label for="condition">Condition</label>
-                <input type="text" class="form-control" id="condition" name="condition" required>
+                <input type="number" class="form-control" id="condition" name="condition" required>
             </div>
             <div class="form-group">
                 <label for="sqft_above">Sqft Above</label>
-                <input type="text" class="form-control" id="sqft_above" name="sqft_above" required>
+                <input type="number" class="form-control" id="sqft_above" name="sqft_above" required>
             </div>
             <div class="form-group">
                 <label for="sqft_basement">Sqft Basement</label>
-                <input type="text" class="form-control" id="sqft_basement" name="sqft_basement" required>
+                <input type="number" class="form-control" id="sqft_basement" name="sqft_basement" required>
             </div>
             <div class="form-group">
                 <label for="yr_built">Year Built</label>
-                <input type="text" class="form-control" id="yr_built" name="yr_built" required>
+                <input type="number" class="form-control" id="yr_built" name="yr_built" required>
             </div>
             <div class="form-group">
                 <label for="yr_renovated">Year Renovated</label>
-                <input type="text" class="form-control" id="yr_renovated" name="yr_renovated" required>
+                <input type="number" class="form-control" id="yr_renovated" name="yr_renovated" required>
             </div>
             <button type="submit" class="btn btn-primary">Predict Price</button>
         </form>
 
         <h3>{{ prediction_text }}</h3>
+    </div>
+
+    <!-- Footer Section with Name and Contact Info -->
+    <div class="footer">
+        <p>Created by <strong>Karanvir Dhaliwal</strong></p>
+        <p>Contact: <a href="tel:+******15810">*****15810</a></p>
     </div>
 
 </body>
