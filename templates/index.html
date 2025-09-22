@@ -8,9 +8,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
-        /* Body Styling */
+        /* Body Styling with Background GIF */
         body {
-            background: linear-gradient(to right, #ff7e5f, #feb47b); /* Gradient background for a warm feel */
+            background: url('https://media.giphy.com/media/12XDYs1h6NxLkA/giphy.gif') no-repeat center center fixed;
+            background-size: cover;
             height: 100vh;
             display: flex;
             justify-content: center;
@@ -23,11 +24,11 @@
 
         /* Create Glass Effect on Form Background */
         .glass-effect {
-            background: rgba(255, 255, 255, 0.2); /* Semi-transparent background */
+            background: rgba(255, 255, 255, 0.3); /* Semi-transparent background */
             border-radius: 15px;
             padding: 40px;
-            backdrop-filter: blur(15px); /* Glass effect */
-            -webkit-backdrop-filter: blur(15px); /* Safari support */
+            backdrop-filter: blur(10px); /* Glass effect */
+            -webkit-backdrop-filter: blur(10px); /* Safari support */
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
             width: 100%;
             max-width: 800px;
@@ -92,12 +93,13 @@
             margin-top: 30px;
         }
 
-        /* Footer Section Styling */
+        /* Footer Section Styling (Bottom-left position) */
         .footer {
-            text-align: center;
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
             color: #fff;
             font-size: 1rem;
-            margin-top: 50px;
         }
 
         .footer a {
@@ -179,7 +181,7 @@
         <h3>{{ prediction_text }}</h3>
     </div>
 
-    <!-- Footer Section with Name and Contact Info -->
+    <!-- Footer Section with Name and Contact Info (Bottom-left) -->
     <div class="footer">
         <p>Created by <strong>Karanvir Dhaliwal</strong></p>
         <p>Contact: <a href="tel:+******15810">*****15810</a></p>
