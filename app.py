@@ -48,11 +48,9 @@ def predict():
         return jsonify({'error': str(e)})
 
 # Route for Google Colab link
-@app.route('/colab')
-def colab():
-    # Link to your Google Colab notebook
-    colab_url = "https://colab.research.google.com/drive/1Rdzpe0RaYJ2C6Xa7eAsP4EPFydgtMNBH"  # Replace this with your actual link
-    return render_template('colab.html', colab_link=colab_url)
+@app.route('/about')
+def about():
+    return render_template('about.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
