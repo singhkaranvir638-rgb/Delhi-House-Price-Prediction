@@ -10,7 +10,7 @@
     <style>
         /* Body Styling */
         body {
-            background-image: url('https://media.giphy.com/media/3o85xZ4p5WbZPgaHWo/giphy.gif'); /* Replace with sunset or house view gif */
+            background-image: url('https://images.unsplash.com/photo-1582639036514-5083ac60c014?crop=entropy&cs=tinysrgb&fit=max&ixid=MnwzNjUyOXwwfDF8c2VhY3J8MHx8aG91c2V8ZW58MHx8fHwxNjU2MTgyNjc2&ixlib=rb-1.2.1&q=80&w=1080'); /* Replace with your desired background image URL */
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -20,8 +20,8 @@
             align-items: center;
             color: white;
             font-family: 'Poppins', sans-serif;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4); /* Shadow for contrast */
             margin: 0;
+            overflow-x: hidden;
         }
 
         /* Create Glass Effect on Form Background */
@@ -29,11 +29,12 @@
             background: rgba(255, 255, 255, 0.2); /* Semi-transparent white */
             border-radius: 15px;
             padding: 40px;
-            backdrop-filter: blur(15px); /* This creates the glass effect */
-            -webkit-backdrop-filter: blur(15px); /* Safari support */
+            backdrop-filter: blur(10px); /* This creates the glass effect */
+            -webkit-backdrop-filter: blur(10px); /* Safari support */
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* Shadow for depth */
             width: 100%;
-            max-width: 700px;
+            max-width: 800px;
+            overflow: hidden;
         }
 
         /* Title Styling */
@@ -87,6 +88,12 @@
             font-weight: 400;
         }
 
+        /* Scrollable Layout */
+        .form-container {
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
         /* Responsive Design */
         @media (max-width: 768px) {
             .glass-effect {
@@ -105,7 +112,7 @@
 </head>
 <body>
 
-    <div class="glass-effect">
+    <div class="glass-effect form-container">
         <h2>House Price Prediction</h2>
         <form method="POST" action="/predict">
             <div class="form-group">
