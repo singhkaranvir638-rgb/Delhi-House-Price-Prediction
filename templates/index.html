@@ -72,8 +72,13 @@
                 <input type="number" step="0.01" class="form-control" id="Per_Sqft" name="Per_Sqft" min="0" required />
             </div>
             <div class="mb-3">
-                <label for="Income" class="form-label">Income</label>
-                <input type="number" step="0.01" class="form-control" id="Income" name="Income" min="0" required />
+                <label for="Furnished" class="form-label">Furnished</label>
+<select class="form-control" id="Furnished" name="Furnished" required>
+  <option value="" disabled selected>Select an option</option>
+  <option value="1">Yes</option>
+  <option value="0">No</option>
+</select>
+
             </div>
             <button type="submit" class="btn btn-primary w-100">Predict Price</button>
         </form>
