@@ -6,236 +6,433 @@
     <title>Delhi House Price Prediction</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <!-- Font Awesome for Icons -->
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     <style>
+        /* Animated Background */
         body {
-            background: linear-gradient(135deg, #667eea, #764ba2);
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: #fff;
             min-height: 100vh;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            padding: 20px;
+            overflow-x: hidden;
             position: relative;
         }
 
-        .header-contact {
+        /* Floating Background Particles */
+        body::before {
+            content: "";
             position: absolute;
-            top: 20px;
-            left: 20px;
-            background: rgba(0, 0, 0, 0.2);
-            padding: 12px 20px;
-            border-radius: 12px;
-            backdrop-filter: blur(10px);
-            font-size: 0.9rem;
-            line-height: 1.5;
-            z-index: 100;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px),
+                radial-gradient(circle, rgba(255,255,255,0.05) 2px, transparent 2px);
+            background-size: 50px 50px, 80px 80px;
+            animation: float 15s linear infinite;
+            pointer-events: none;
+            z-index: -1;
         }
 
-        .header-links {
-            position: absolute;
-            top: 20px;
-            right: 20px;
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); }
+            100% { transform: translateY(-20px) rotate(360deg); }
+        }
+
+        /* Left Personal Panel */
+        .personal-panel {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 280px;
+            height: 100vh;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-right: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 40px 25px;
             display: flex;
-            gap: 20px;
-            z-index: 100;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            transition: all 0.4s ease;
         }
 
-        .header-links a {
-            color: #fff;
-            text-decoration: none;
-            padding: 8px 16px;
-            border-radius: 30px;
-            background: rgba(255, 255, 255, 0.15);
-            transition: all 0.3s ease;
-            font-weight: 500;
+        .personal-panel:hover {
+            background: rgba(255, 255, 255, 0.12);
+            box-shadow: 0 0 30px rgba(108, 99, 255, 0.3);
+        }
+
+        .avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ff9a9e, #fecfef);
             display: flex;
             align-items: center;
-            gap: 6px;
+            justify-content: center;
+            margin-bottom: 25px;
+            font-size: 2.5rem;
+            color: #fff;
+            font-weight: bold;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
         }
 
-        .header-links a:hover {
-            background: rgba(255, 255, 255, 0.3);
-            transform: translateY(-2px);
+        .personal-info h3 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+            letter-spacing: 0.5px;
         }
 
-        .card {
-            background: rgba(255, 255, 255, 0.1);
+        .personal-info p {
+            margin: 5px 0;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .personal-info .label {
+            font-weight: 600;
+            color: #ffd700;
+        }
+
+        .contact-tag {
+            margin-top: 20px;
+            font-style: italic;
+            font-size: 0.9rem;
+            background: rgba(255, 215, 0, 0.15);
+            padding: 8px 15px;
             border-radius: 20px;
-            padding: 40px;
-            width: 100%;
-            max-width: 520px;
-            box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.25);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            margin: 120px auto 40px;
-            animation: fadeInUp 0.8s ease-out;
-            border: 1px solid rgba(255, 255, 255, 0.18);
+            border-left: 3px solid #ffd700;
         }
 
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        /* Main Card */
+        .main-card {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-radius: 25px;
+            padding: 50px;
+            width: 100%;
+            max-width: 550px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            margin: 120px auto;
+            animation: slideIn 0.8s ease-out;
+            position: relative;
+            z-index: 10;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         h1 {
             text-align: center;
-            margin-bottom: 30px;
             font-weight: 800;
-            font-size: 2rem;
-            letter-spacing: 0.5px;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            font-size: 2.2rem;
+            margin-bottom: 35px;
+            text-shadow: 0 3px 6px rgba(0,0,0,0.2);
+            background: linear-gradient(to right, #ffd700, #ff8c00);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .form-label {
             font-weight: 600;
-            margin-top: 10px;
+            margin-top: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .form-control {
-            background: rgba(255, 255, 255, 0.9) !important;
+            background: rgba(255, 255, 255, 0.95) !important;
             border: none !important;
-            padding: 12px 15px;
+            padding: 14px 20px;
             color: #333;
             font-weight: 500;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
             transition: all 0.3s ease;
+            border-radius: 12px;
         }
 
         .form-control:focus {
             background: #fff !important;
-            box-shadow: 0 4px 15px rgba(108, 99, 255, 0.3);
-            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(108, 99, 255, 0.4);
+            transform: translateY(-2px);
         }
 
         .btn-primary {
             background: linear-gradient(135deg, #6c63ff, #5049ff);
             border: none;
-            padding: 14px;
+            padding: 16px;
             font-weight: 600;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.8px;
+            border-radius: 14px;
+            margin-top: 15px;
             transition: all 0.3s ease;
-            margin-top: 10px;
+            font-size: 1.1rem;
         }
 
         .btn-primary:hover {
             background: linear-gradient(135deg, #5a52e0, #4037d8);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(108, 99, 255, 0.6);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(108, 99, 255, 0.6);
         }
 
         .result {
-            margin-top: 30px;
-            padding: 25px;
-            background: rgba(255, 215, 0, 0.15);
-            border-radius: 15px;
-            border-left: 5px solid #ffd700;
-            animation: pulse 1.5s infinite;
+            margin-top: 40px;
+            padding: 30px;
+            background: rgba(255, 215, 0, 0.12);
+            border-radius: 20px;
+            border-left: 6px solid #ffd700;
+            animation: pulseGlow 2s infinite;
             text-align: center;
+            backdrop-filter: blur(10px);
         }
 
-        @keyframes pulse {
+        @keyframes pulseGlow {
             0% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.4); }
-            70% { box-shadow: 0 0 0 10px rgba(255, 215, 0, 0); }
+            70% { box-shadow: 0 0 0 12px rgba(255, 215, 0, 0); }
             100% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0); }
         }
 
         .result p {
-            margin-bottom: 5px;
-            font-size: 1.1rem;
-            opacity: 0.9;
+            margin-bottom: 8px;
+            font-size: 1.15rem;
+            opacity: 0.95;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
         }
 
         .result strong {
-            font-size: 1.8rem;
+            font-size: 2rem;
             color: #ffd700;
-            font-weight: 700;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            font-weight: 800;
+            text-shadow: 0 3px 8px rgba(0,0,0,0.3);
         }
 
-        @media (max-width: 768px) {
-            .header-contact, .header-links {
+        /* Top Right Corner Links */
+        .top-links {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            z-index: 2000;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .top-links a {
+            color: #fff;
+            text-decoration: none;
+            padding: 12px 24px;
+            border-radius: 50px;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+        }
+
+        .top-links a:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+        }
+
+        /* Modal Styling */
+        .modal-content {
+            background: rgba(30, 30, 50, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .modal-header {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 25px 30px;
+        }
+
+        .modal-body {
+            padding: 30px;
+            font-size: 1.1rem;
+            line-height: 1.7;
+        }
+
+        .modal-title {
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: #ffd700;
+        }
+
+        .btn-close {
+            color: #fff;
+            opacity: 0.8;
+        }
+
+        @media (max-width: 992px) {
+            .personal-panel {
+                width: 100%;
+                height: auto;
+                padding: 30px;
                 position: relative;
-                top: auto;
-                left: auto;
-                right: auto;
-                margin-bottom: 20px;
-                text-align: center;
+                margin-bottom: 40px;
+                border-right: none;
+                border-bottom: 1px solid rgba(255,255,255,0.1);
             }
-            .header-links {
-                justify-content: center;
+
+            .main-card {
+                margin: 20px auto;
+                padding: 30px 25px;
+                max-width: 95%;
             }
-            .card {
-                margin: 80px auto 30px;
-                padding: 30px 20px;
+
+            .top-links {
+                top: 10px;
+                right: 10px;
             }
         }
     </style>
 </head>
 <body>
 
-    <!-- Personal Info - Top Left -->
-    <div class="header-contact">
-        <div><strong>Karanvir Singh</strong></div>
-        <div><i class="fas fa-phone"></i> +91 6280215810</div>
-        <div><i class="fas fa-envelope"></i> singhkaranvir638@gmail.com</div>
-        <div style="margin-top: 5px; font-style: italic;">Contact for more info</div>
+    <!-- Left Personal Info Panel -->
+    <div class="personal-panel">
+        <div class="avatar">
+            <i class="fas fa-user"></i>
+        </div>
+        <div class="personal-info text-center">
+            <h3>Karanvir Singh</h3>
+            <p><i class="fas fa-phone"></i> <span class="label">Phone:</span> +91 6280215810</p>
+            <p><i class="fas fa-envelope"></i> <span class="label">Email:</span> singhkaranvir638@gmail.com</p>
+            <div class="contact-tag">
+                <i class="fas fa-lightbulb me-2"></i> Contact for more info
+            </div>
+        </div>
     </div>
 
-    <!-- Navigation Links - Top Right -->
-    <div class="header-links">
-        <a href="/about"><i class="fas fa-info-circle"></i> About Project</a>
-        <a href="/contact"><i class="fas fa-file-alt"></i> File a Query</a>
+    <!-- Top Right Corner Links (Modals) -->
+    <div class="top-links">
+        <!-- About Project Modal Trigger -->
+        <a href="#" data-bs-toggle="modal" data-bs-target="#aboutModal">
+            <i class="fas fa-info-circle"></i> About Project
+        </a>
+        <!-- File Details Modal Trigger -->
+        <a href="#" data-bs-toggle="modal" data-bs-target="#fileModal">
+            <i class="fas fa-file-alt"></i> File Details
+        </a>
     </div>
 
     <!-- Main Prediction Card -->
-    <div class="card">
-        <h1><i class="fas fa-home me-2"></i> Delhi House Price Prediction</h1>
+    <div class="main-card">
+        <h1><i class="fas fa-home me-3"></i>Delhi House Price Prediction</h1>
 
         <form method="POST">
             <div class="mb-3">
-                <label for="BHK" class="form-label"><i class="fas fa-bed me-2"></i> BHK (Bedrooms)</label>
+                <label for="BHK" class="form-label"><i class="fas fa-bed"></i> BHK (Bedrooms)</label>
                 <input type="number" class="form-control" id="BHK" name="BHK" min="1" max="10" required />
             </div>
             <div class="mb-3">
-                <label for="Bathroom" class="form-label"><i class="fas fa-bath me-2"></i> Bathrooms</label>
+                <label for="Bathroom" class="form-label"><i class="fas fa-bath"></i> Bathrooms</label>
                 <input type="number" class="form-control" id="Bathroom" name="Bathroom" min="1" max="10" required />
             </div>
             <div class="mb-3">
-                <label for="Parking" class="form-label"><i class="fas fa-car me-2"></i> Parking Spaces</label>
+                <label for="Parking" class="form-label"><i class="fas fa-car"></i> Parking Spaces</label>
                 <input type="number" class="form-control" id="Parking" name="Parking" min="0" max="5" required />
             </div>
             <div class="mb-3">
-                <label for="Per_Sqft" class="form-label"><i class="fas fa-ruler-combined me-2"></i> Area (Sq.ft)</label>
-                <input type="number" step="0.01" class="form-control" id="Per_Sqft" name="Per_Sqft" min="0" required placeholder="e.g. 1200" />
+                <label for="Per_Sqft" class="form-label"><i class="fas fa-ruler-combined"></i> Area (Sq.ft)</label>
+                <input type="number" step="0.01" class="form-control" id="Per_Sqft" name="Per_Sqft" min="0" required placeholder="Enter total area" />
             </div>
             <div class="mb-3">
-                <label for="Furnished" class="form-label"><i class="fas fa-couch me-2"></i> Furnished Status</label>
+                <label for="Furnished" class="form-label"><i class="fas fa-couch"></i> Furnished Status</label>
                 <select class="form-control" id="Furnished" name="Furnished" required>
-                    <option value="" disabled selected>— Select Option —</option>
-                    <option value="1">✅ Yes, Furnished</option>
+                    <option value="" disabled selected>— Select Furnished Status —</option>
+                    <option value="1">✅ Yes, Fully Furnished</option>
                     <option value="0">❌ No, Unfurnished</option>
                 </select>
             </div>
-            <button type="submit" class="btn btn-primary w-100 mt-4">
-                <i class="fas fa-calculator me-2"></i> Predict Price
+            <button type="submit" class="btn btn-primary w-100">
+                <i class="fas fa-magic me-2"></i> Predict My House Price
             </button>
         </form>
 
         {% if prediction %}
         <div class="result mt-4">
-            <p><i class="fas fa-tag me-2"></i> Predicted House Price:</p>
+            <p><i class="fas fa-tag"></i> Predicted Price in INR:</p>
             <strong>₹ {{ prediction }}</strong>
         </div>
         {% endif %}
     </div>
 
-    <!-- Bootstrap JS -->
+    <!-- About Project Modal -->
+    <div class="modal fade" id="aboutModal" tabindex="-1" aria-labelledby="aboutModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="aboutModalLabel"><i class="fas fa-info-circle me-2"></i> About This Project</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        <strong>Delhi House Price Prediction</strong> is an intelligent web application built to estimate property prices in Delhi based on key features like BHK, bathrooms, parking, area, and furnishing status.
+                    </p>
+                    <p>
+                        This project leverages machine learning models trained on real estate data to provide accurate, instant price predictions — helping buyers, sellers, and renters make informed decisions.
+                    </p>
+                    <p>
+                        Developed with ❤️ by <strong>Karanvir Singh</strong> — aiming to simplify real estate valuation through technology.
+                    </p>
+                    <div class="alert alert-info" style="background: rgba(64, 120, 255, 0.15); border-left: 4px solid #4078ff;">
+                        <i class="fas fa-lightbulb me-2"></i> Tip: Try different combinations to see how features impact price!
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- File Details Modal -->
+    <div class="modal fade" id="fileModal" tabindex="-1" aria-labelledby="fileModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="fileModalLabel"><i class="fas fa-file-alt me-2"></i> File a Query / Report</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        Found an issue? Want to suggest a feature? Or just say hello? I’d love to hear from you!
+                    </p>
+                    <ul>
+                        <li><strong>Email:</strong> singhkaranvir638@gmail.com</li>
+                        <li><strong>Phone:</strong> +91 6280215810</li>
+                        <li><strong>Response Time:</strong> Within 24 hours</li>
+                    </ul>
+                    <div class="alert alert-warning" style="background: rgba(255, 193, 7, 0.15); border-left: 4px solid #ffc107;">
+                        <i class="fas fa-exclamation-triangle me-2"></i> Please include “House Price App” in your subject line for faster response.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap Bundle JS (includes Popper) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
