@@ -1,56 +1,37 @@
-from flask import Flask, request, jsonify, render_template
+from flask import Flask, render_template, request
 import joblib
 import numpy as np
 
-# Initialize the Flask app
 app = Flask(__name__)
 
-# Load the trained model and scaler
-model = joblib.load('house_price_model.pkl')
-# If you also saved the scaler, load it here:
-# scaler = joblib.load('scaler.pkl')
+# Load saved model and scaler
+model = joblib.load('best_model.pkl')
+scaler = joblib.load('scaler.pkl')
 
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 def home():
-    return render_template('index.html')
+    prediction = None
+    if request.method == 'POST':
+        try:
+            # Extract input features from form
+            bhk = int(request.form['BHK'])
+            bathroom = int(request.form['Bathroom'])
+            parking = int(request.form['Parking'])
+            per_sqft = float(request.form['Per_Sqft'])
+            income = float(request.form['Income'])
 
-@app.route('/predict', methods=['POST'])
-def predict():
-    try:
-        # Get input data from the form
-        bedrooms = float(request.form['bedrooms'])
-        bathrooms = float(request.form['bathrooms'])
-        sqft_living = float(request.form['sqft_living'])
-        sqft_lot = float(request.form['sqft_lot'])
-        floors = float(request.form['floors'])
-        waterfront = float(request.form['waterfront'])
-        view = float(request.form['view'])
-        condition = float(request.form['condition'])
-        sqft_above = float(request.form['sqft_above'])
-        sqft_basement = float(request.form['sqft_basement'])
-        yr_built = int(request.form['yr_built'])
-        yr_renovated = int(request.form['yr_renovated'])
-        
-        # Create the input array
-        input_data = np.array([[bedrooms, bathrooms, sqft_living, sqft_lot, floors, waterfront, view, condition,
-                                sqft_above, sqft_basement, yr_built, yr_renovated]])
+            # Create feature array and scale
+            features = np.array([[bhk, bathroom, parking, per_sqft, income]])
+            features_scaled = scaler.transform(features)
 
-        # Scale the input data if you have a scaler
-        # input_data_scaled = scaler.transform(input_data)
+            # Predict price
+            pred_price = model.predict(features_scaled)[0]
+            prediction = f"₹{pred_price:,.2f}"
 
-        # Get the prediction
-        predicted_price = model.predict(input_data)  # Use scaled data if you have a scaler
+        except Exception as e:
+            prediction = f"Error: {str(e)}"
 
-        # Return the prediction as a response
-        return render_template('index.html', prediction_text=f"Predicted Price: ₹{predicted_price[0]:,.2f}")
-    
-    except Exception as e:
-        return jsonify({'error': str(e)})
-
-# Route for Google Colab link
-@app.route('/about')
-def about():
-    return render_template('about.html')
+    return render_template('index.html', prediction=prediction)
 
 if __name__ == '__main__':
     app.run(debug=True)
