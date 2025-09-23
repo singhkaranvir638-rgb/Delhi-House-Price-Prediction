@@ -65,21 +65,42 @@
             backdrop-filter: blur(25px);
             -webkit-backdrop-filter: blur(25px);
             border-right: 1px solid rgba(255, 255, 255, 0.2);
-            padding: 30px 25px;
+            padding: 40px 25px;
             display: flex;
             flex-direction: column;
-            justify-content: flex-start;
+            justify-content: center;
             align-items: center;
             z-index: 1000;
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             box-shadow: 0 0 40px rgba(0,0,0,0.1);
-            overflow-y: auto;
         }
 
         .personal-panel:hover {
             background: rgba(255, 255, 255, 0.18);
             box-shadow: 0 0 60px rgba(108, 99, 255, 0.4);
             transform: translateX(5px);
+        }
+
+        /* Contact tag at the top */
+        .contact-tag {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            right: 20px;
+            font-style: italic;
+            font-size: 0.9rem;
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 140, 0, 0.2));
+            padding: 12px 20px;
+            border-radius: 25px;
+            border: 2px solid rgba(255, 215, 0, 0.3);
+            animation: pulse 2s infinite;
+            text-align: center;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(255, 215, 0, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0); }
         }
 
         .avatar {
@@ -162,60 +183,34 @@
             text-shadow: 0 0 5px rgba(255,215,0,0.5);
         }
 
-        .contact-tag {
-            margin-top: 20px;
-            margin-bottom: 30px;
-            font-style: italic;
-            font-size: 0.95rem;
-            background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 140, 0, 0.2));
-            padding: 12px 20px;
-            border-radius: 25px;
-            border: 2px solid rgba(255, 215, 0, 0.3);
-            animation: pulse 2s infinite;
-            text-align: center;
-        }
-
-        /* Panel Navigation Links */
-        .panel-links {
-            width: 100%;
-            margin-top: 20px;
-        }
-
-        .panel-links a {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 15px 20px;
-            margin: 10px 0;
+        /* About Project & File Details at bottom */
+        .about-section {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            right: 20px;
             background: rgba(255, 255, 255, 0.1);
             border: 1px solid rgba(255, 255, 255, 0.2);
             border-radius: 20px;
-            color: #fff;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.95rem;
+            padding: 15px 20px;
+            text-align: center;
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             backdrop-filter: blur(10px);
         }
 
-        .panel-links a:hover {
+        .about-section:hover {
             background: rgba(255, 255, 255, 0.2);
-            transform: translateX(5px) scale(1.02);
+            transform: translateY(-3px) scale(1.02);
             box-shadow: 0 5px 20px rgba(255, 215, 0, 0.3);
             border-color: rgba(255, 215, 0, 0.5);
         }
 
-        .panel-links a i {
+        .about-section p {
+            margin: 0;
+            font-size: 0.95rem;
+            font-weight: 600;
             color: #ffd700;
-            font-size: 1.1rem;
-            width: 20px;
-            text-align: center;
-        }
-
-        @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.4); }
-            70% { box-shadow: 0 0 0 10px rgba(255, 215, 0, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0); }
+            cursor: pointer;
         }
 
         /* Enhanced Main Card */
@@ -234,6 +229,7 @@
             position: relative;
             z-index: 10;
             overflow: hidden;
+            margin-left: 350px;
         }
 
         .main-card::before {
@@ -402,11 +398,6 @@
             50% { filter: drop-shadow(0 0 20px rgba(255,140,0,0.8)); }
         }
 
-        /* Enhanced Top Right Corner Links - Now Empty */
-        .top-links {
-            display: none;
-        }
-
         /* Enhanced Modal Styling */
         .modal-content {
             background: linear-gradient(135deg, rgba(30, 30, 50, 0.95), rgba(60, 60, 80, 0.95));
@@ -468,13 +459,14 @@
         /* Enhanced Responsive Design */
         @media (max-width: 1200px) {
             .personal-panel {
-                width: 250px;
+                width: 280px;
                 padding: 30px 20px;
             }
             
             .main-card {
                 max-width: 500px;
                 padding: 40px;
+                margin-left: 320px;
             }
         }
 
@@ -488,28 +480,29 @@
                 border-right: none;
                 border-bottom: 1px solid rgba(255,255,255,0.2);
                 transform: none;
-                justify-content: flex-start;
             }
 
-            .personal-panel .panel-links {
-                display: flex;
-                flex-direction: row;
-                gap: 15px;
-                margin-top: 20px;
+            .contact-tag {
+                position: relative;
+                top: auto;
+                left: auto;
+                right: auto;
+                margin-bottom: 30px;
             }
 
-            .personal-panel .panel-links a {
-                flex: 1;
-                justify-content: center;
-                margin: 0;
-                padding: 12px 16px;
-                font-size: 0.9rem;
+            .about-section {
+                position: relative;
+                bottom: auto;
+                left: auto;
+                right: auto;
+                margin-top: 30px;
             }
 
             .main-card {
                 margin: 20px auto;
                 padding: 30px 25px;
                 max-width: 95%;
+                margin-left: auto;
             }
 
             h1 {
@@ -544,29 +537,28 @@
     </style>
 </head>
 <body>
-        <div class="avatar"></div>
-        
-        <div class="personal-info text-center">
-            <h3>👨‍💻 Karanvir Singh</h3>
-            <p><i class="fas fa-phone"></i> <span class="label">📱 Phone:</span> +91 6280215810</p>
-            <p><i class="fas fa-envelope"></i> <span class="label">📧 Email:</span> singhkaranvir638@gmail.com</p>
-        </div>
 
     <!-- Left Personal Info Panel -->
     <div class="personal-panel">
+        <!-- Contact for more info at TOP -->
         <div class="contact-tag">
-            <i class="fas fa-lightbulb me-2"></i> 📞 Contact for more info
+            💡 Contact for more info
         </div>
         
-        <div class="panel-links">
-            <a href="#" data-bs-toggle="modal" data-bs-target="#aboutModal">
-                <i class="fas fa-info-circle"></i> 📊 About Project & File Details
-            </a>
+        <!-- Avatar -->
+        <div class="avatar"></div>
+        
+        <!-- Personal Info in CENTER -->
+        <div class="personal-info text-center">
+            <h3>Karanvir Singh</h3>
+            <p><i class="fas fa-phone"></i> <span class="label">Phone:</span> +91 6280215810</p>
+            <p><i class="fas fa-envelope"></i> <span class="label">Email:</span> singhkaranvir638@gmail.com</p>
         </div>
-    </div>
 
-    <!-- Top Right Corner Links (Now Hidden) -->
-    <div class="top-links">
+        <!-- About Project & File Details at BOTTOM -->
+        <div class="about-section" data-bs-toggle="modal" data-bs-target="#aboutModal">
+            <p>📊 About Project and File Details</p>
+        </div>
     </div>
 
     <!-- Main Prediction Card -->
@@ -611,72 +603,73 @@
         {% endif %}
     </div>
 
-    <!-- About Project Modal (Combined with File Details) -->
+    <!-- About Project Modal -->
     <div class="modal fade" id="aboutModal" tabindex="-1" aria-labelledby="aboutModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="aboutModalLabel"><i class="fas fa-info-circle me-2"></i> 🏠 About Project & File Details</h5>
+                    <h5 class="modal-title" id="aboutModalLabel"><i class="fas fa-info-circle me-2"></i> About Project and File Details</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <div style="border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 25px; margin-bottom: 25px;">
                         <h6 style="color: #ffd700; font-weight: 700; margin-bottom: 20px;">
-                            <i class="fas fa-rocket me-2"></i> 🚀 About This Project:
+                            <i class="fas fa-rocket me-2"></i> About This Project:
                         </h6>
                         <p>
-                            <strong>🏠 Delhi House Price Prediction</strong> is an advanced machine learning-powered web application designed to provide accurate real estate valuations for properties in Delhi, India's capital city.
+                            <strong>Delhi House Price Prediction</strong> is an advanced machine learning-powered web application designed to provide accurate real estate valuations for properties in Delhi, India's capital city.
                         </p>
                         
                         <h6 style="color: #ffd700; font-weight: 700; margin: 25px 0 15px 0;">
-                            <i class="fas fa-cogs me-2"></i> ✨ Key Features:
+                            <i class="fas fa-cogs me-2"></i> Key Features:
                         </h6>
                         <ul style="line-height: 1.8;">
-                            <li><strong>🎯 Smart Predictions:</strong> Uses trained ML models on real Delhi property data</li>
-                            <li><strong>🏗️ Multiple Parameters:</strong> Considers BHK, bathrooms, parking, area, and furnishing</li>
-                            <li><strong>⚡ Instant Results:</strong> Get price estimates in seconds, not days</li>
-                            <li><strong>📱 User-Friendly Interface:</strong> Beautiful, responsive design for all devices</li>
-                            <li><strong>📈 Accurate Valuations:</strong> Based on current market trends and historical data</li>
+                            <li><strong>Smart Predictions:</strong> Uses trained ML models on real Delhi property data</li>
+                            <li><strong>Multiple Parameters:</strong> Considers BHK, bathrooms, parking, area, and furnishing</li>
+                            <li><strong>Instant Results:</strong> Get price estimates in seconds, not days</li>
+                            <li><strong>User-Friendly Interface:</strong> Beautiful, responsive design for all devices</li>
+                            <li><strong>Accurate Valuations:</strong> Based on current market trends and historical data</li>
                         </ul>
                         
-                        <div class="alert alert-info" style="background: linear-gradient(135deg, rgba(64, 120, 255, 0.2), rgba(100, 150, 255, 0.2)); border-left: 4px solid #4078ff;">
-                            <i class="fas fa-lightbulb me-2"></i> <strong>💡 Pro Tip:</strong> Try different combinations of features to understand how each parameter affects property valuation in Delhi's dynamic real estate market!
+                        <div class="alert alert-info">
+                            <i class="fas fa-lightbulb me-2"></i> <strong>Pro Tip:</strong> Try different combinations of features to understand how each parameter affects property valuation in Delhi's dynamic real estate market!
                         </div>
                     </div>
 
                     <div>
                         <h6 style="color: #ffd700; font-weight: 700; margin-bottom: 20px;">
-                            <i class="fas fa-folder-open me-2"></i> 📁 Project Structure & Files:
+                            <i class="fas fa-folder-open me-2"></i> Project Structure & Files:
                         </h6>
                         <ul style="line-height: 2;">
-                            <li><strong>🐍 app.py</strong> - Main Flask application with ML model integration</li>
-                            <li><strong>🤖 model.pkl</strong> - Trained machine learning model for price prediction</li>
-                            <li><strong>🎨 templates/index.html</strong> - Frontend interface with enhanced styling</li>
-                            <li><strong>📂 static/</strong> - CSS, JS, and image assets</li>
-                            <li><strong>📊 dataset.csv</strong> - Training data from Delhi real estate market</li>
-                            <li><strong>📋 requirements.txt</strong> - Python dependencies and packages</li>
+                            <li><strong>app.py</strong> - Main Flask application with ML model integration</li>
+                            <li><strong>model.pkl</strong> - Trained machine learning model for price prediction</li>
+                            <li><strong>templates/index.html</strong> - Frontend interface with enhanced styling</li>
+                            <li><strong>static/</strong> - CSS, JS, and image assets</li>
+                            <li><strong>dataset.csv</strong> - Training data from Delhi real estate market</li>
+                            <li><strong>requirements.txt</strong> - Python dependencies and packages</li>
                         </ul>
                         
                         <h6 style="color: #ffd700; font-weight: 700; margin: 30px 0 20px 0;">
-                            <i class="fas fa-code me-2"></i> 💻 Technology Stack:
+                            <i class="fas fa-code me-2"></i> Technology Stack:
                         </h6>
-                        <p>Built with <strong>🐍 Python Flask</strong> backend, <strong>🤖 Machine Learning</strong> algorithms, <strong>🎨 Bootstrap 5</strong> frontend, and enhanced with modern <strong>✨ CSS3 animations</strong> and <strong>⚡ JavaScript</strong> interactions.</p>
+                        <p>Built with <strong>Python Flask</strong> backend, <strong>Machine Learning</strong> algorithms, <strong>Bootstrap 5</strong> frontend, and enhanced with modern <strong>CSS3 animations</strong> and <strong>JavaScript</strong> interactions.</p>
                         
-                        <div class="alert alert-warning" style="background: linear-gradient(135deg, rgba(255, 193, 7, 0.2), rgba(255, 150, 0, 0.2)); border-left: 4px solid #ffc107;">
-                            <i class="fas fa-question-circle me-2"></i> <strong>🤔 Need Help or Found an Issue?</strong><br>
+                        <div class="alert alert-warning">
+                            <i class="fas fa-question-circle me-2"></i> <strong>Need Help or Found an Issue?</strong><br>
                             Whether you've discovered a bug, want to suggest a new feature, need technical support, or just want to share feedback - I'm here to help!
                         </div>
                     </div>
                     
                     <p style="text-align: center; margin-top: 30px; font-style: italic;">
-                        Developed with ❤️ and ☕ by <strong style="color: #ffd700;">👨‍💻 Karanvir Singh</strong><br>
-                        <small>🌉 Bridging technology and real estate for smarter decisions</small>
+                        Developed with ❤️ and ☕ by <strong style="color: #ffd700;">Karanvir Singh</strong><br>
+                        <small>Bridging technology and real estate for smarter decisions</small>
                     </p>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- File Details Modal (Now Hidden/Unused) -->
-    <div class="modal fade" id="fileModal" tabindex="-1" style="display: none;">
-    </div>
+    <!-- Bootstrap Bundle JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
