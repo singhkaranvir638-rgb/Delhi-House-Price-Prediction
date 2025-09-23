@@ -21,7 +21,7 @@ def home():
             furnished = float(request.form['Furnished'])
 
             # Create feature array and scale
-            features = np.array([[bhk, bathroom, parking, per_sqft, furnished])
+            features = np.array([[bhk, bathroom, parking, per_sqft, furnished]])
             features_scaled = scaler.transform(features)
 
             # Predict price
