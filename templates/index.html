@@ -1,498 +1,92 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Accurate house price prediction tool by Karanvir Dhaliwal">
-    <title>House Price Prediction | Karanvir Dhaliwal</title>
-    <!-- Google Fonts - Poppins -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Bootstrap CSS (CDN with SRI for security) -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Delhi House Price Prediction</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
     <style>
-        /* ========== BASE ========== */
-        :root {
-            --primary-gradient: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
-            --glass-bg: rgba(255, 255, 255, 0.15);
-            --glass-border: rgba(255, 255, 255, 0.3);
-            --btn-gradient: linear-gradient(45deg, #667eea, #764ba2);
-            --btn-hover: linear-gradient(45deg, #764ba2, #667eea);
-            --text-shadow: 0 0 30px rgba(255, 255, 255, 0.8);
-        }
-
-        * {
-            box-sizing: border-box;
-        }
-
         body {
-            background: var(--primary-gradient);
-            background-size: 400% 400%;
-            animation: gradientBG 18s ease infinite;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: #fff;
             min-height: 100vh;
             display: flex;
-            flex-direction: column;
-            justify-content: center;
             align-items: center;
-            font-family: 'Poppins', sans-serif;
-            color: #333;
-            margin: 0;
-            padding: 20px;
-            position: relative;
-            overflow-x: hidden;
+            justify-content: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-
-        @keyframes gradientBG {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        /* Time-based overlays - simplified for performance */
-        .overlay {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            pointer-events: none;
-            z-index: 1;
-            opacity: 0;
-            transition: opacity 1s ease;
-        }
-
-        .overlay.active {
-            opacity: 0.2;
-        }
-
-        /* ========== PERSONAL BADGE (TOP LEFT) ========== */
-        .personal-badge {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            z-index: 20;
-            background: rgba(255, 255, 255, 0.9);
-            padding: 16px;
+        .card {
+            background: rgba(255, 255, 255, 0.1);
             border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-            font-family: 'Poppins', sans-serif;
-            font-size: 0.9rem;
-            color: #333;
-            text-align: left;
-            backdrop-filter: blur(8px);
-            border: 1px solid rgba(255, 255, 255, 0.4);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .personal-badge:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-        }
-
-        .personal-badge strong {
-            font-size: 1.1rem;
-            color: #2c3e50;
-        }
-
-        .personal-badge a {
-            color: #667eea;
-            text-decoration: none;
-            font-weight: 500;
-            display: block;
-            margin-top: 4px;
-        }
-
-        .personal-badge a:hover {
-            text-decoration: underline;
-            color: #764ba2;
-        }
-
-        /* ========== GLASS CONTAINER ========== */
-        .glass-effect {
-            background: var(--glass-bg);
-            border-radius: 25px;
-            padding: 40px;
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+            padding: 30px;
             width: 100%;
-            max-width: 900px;
-            color: #333;
-            border: 2px solid var(--glass-border);
-            position: relative;
-            z-index: 10;
-            margin: 0 auto;
+            max-width: 500px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
         }
-
-        /* Animated border - simplified */
-        .glass-effect::before {
-            content: '';
-            position: absolute;
-            top: -3px; left: -3px; right: -3px; bottom: -3px;
-            border-radius: 28px;
-            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #ffc93c);
-            background-size: 300% 300%;
-            animation: gradientShift 8s ease infinite;
-            z-index: -1;
-            opacity: 0.7;
+        .form-control, .btn {
+            border-radius: 10px;
         }
-
-        @keyframes gradientShift {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-        }
-
-        /* ========== TYPOGRAPHY ========== */
-        h1, h2, h3 {
-            color: white;
-            text-shadow: var(--text-shadow);
-            font-weight: 700;
-            line-height: 1.2;
-        }
-
-        h2 {
-            font-size: 2.5rem;
-            text-align: center;
-            margin-bottom: 30px;
-            cursor: default;
-            position: relative;
-        }
-
-        @media (max-width: 768px) {
-            h2 { font-size: 2rem; }
-        }
-
-        /* ========== FORM ========== */
-        .form-group {
-            margin-bottom: 24px;
-        }
-
-        .form-group label {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: #1a1a1a;
-            margin-bottom: 8px;
-            background: rgba(255, 255, 255, 0.95);
-            padding: 10px 16px;
-            border-radius: 12px;
-            display: inline-block;
-            border: 2px solid #333;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
-            width: auto;
-        }
-
-        .form-control {
-            font-size: 1.1rem;
-            padding: 14px;
-            border-radius: 12px;
-            width: 100%;
-            border: 2px solid rgba(255, 255, 255, 0.4);
-            margin-bottom: 8px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
-            background: rgba(255, 255, 255, 0.95);
-            transition: all 0.3s ease;
-            color: #333;
-        }
-
-        .form-control:focus {
-            outline: none;
-            box-shadow: 0 6px 20px rgba(78, 205, 196, 0.3);
-            border-color: #4ecdc4;
-            transform: translateY(-2px);
-            background: rgba(255, 255, 255, 1);
-        }
-
-        /* ========== BUTTON ========== */
         .btn-primary {
-            background: var(--btn-gradient);
+            background: #6c63ff;
             border: none;
-            padding: 18px 24px;
-            font-size: 1.2rem;
-            font-weight: 700;
-            border-radius: 15px;
-            width: 100%;
-            transition: all 0.3s ease;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
-            color: white;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
         }
-
         .btn-primary:hover {
-            background: var(--btn-hover);
-            transform: translateY(-3px);
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+            background: #5751d8;
         }
-
-        /* ========== PREDICTION ========== */
-        #prediction {
+        h2 {
+            text-align: center;
+            margin-bottom: 25px;
+            font-weight: 700;
+        }
+        .result {
+            margin-top: 20px;
             font-size: 1.5rem;
             text-align: center;
-            color: white;
-            margin-top: 24px;
-            padding: 16px;
-            background: rgba(0, 0, 0, 0.2);
-            border-radius: 12px;
-            backdrop-filter: blur(8px);
-            display: none;
-        }
-
-        #prediction.show {
-            display: block;
-            animation: fadeIn 0.5s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* ========== FOOTER ========== */
-        .footer {
-            position: relative;
-            margin-top: 40px;
-            color: #fff;
-            font-size: 1rem;
-            background: rgba(0, 0, 0, 0.3);
-            padding: 16px;
-            border-radius: 12px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            text-align: center;
-            width: 100%;
-            max-width: 900px;
-        }
-
-        .footer a {
-            color: #4ecdc4;
-            text-decoration: none;
             font-weight: 600;
-            transition: color 0.3s ease;
-        }
-
-        .footer a:hover {
-            color: #45b7d1;
-            text-decoration: underline;
-        }
-
-        /* ========== RESPONSIVE ========== */
-        @media (max-width: 768px) {
-            .glass-effect { padding: 25px; margin: 10px; }
-            .form-control { font-size: 1rem; padding: 12px; }
-            .footer { margin-top: 30px; }
-            .personal-badge {
-                top: 10px;
-                left: 10px;
-                font-size: 0.85rem;
-                padding: 12px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            body { padding: 10px; }
-            h2 { font-size: 1.8rem; }
-            .btn-primary { font-size: 1.1rem; padding: 16px; }
-            .personal-badge {
-                position: static;
-                margin-bottom: 20px;
-                align-self: flex-start;
-                box-shadow: 0 3px 10px rgba(0,0,0,0.15);
-            }
-        }
-
-        /* ========== ACCESSIBILITY ========== */
-        @media (prefers-reduced-motion: reduce) {
-            * {
-                animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
-                transition-duration: 0.01ms !important;
-            }
+            color: #ffd700;
         }
     </style>
 </head>
 <body>
-    <!-- Personal Info Badge (Top Left) -->
-    <div class="personal-badge">
-        <strong>Karanvir Dhaliwal</strong><br>
-        <small>ML Engineer & Developer</small><br>
-        <a href="tel:+916280215810">📞 +91-62802-15810</a>
-        <a href="mailto:singhkaranvir638@gmail.com">✉️ singhkaranvir638@gmail.com</a>
-        <a href="/about" style="margin-top: 10px; font-weight: 600;">📁 About Project & Training File</a>
-    </div>
-
-    <!-- Time-based overlays -->
-    <div id="sunriseOverlay" class="overlay" style="background: linear-gradient(45deg, rgba(255, 180, 0, 0.3), rgba(255, 120, 0, 0.2));"></div>
-    <div id="sunsetOverlay" class="overlay" style="background: linear-gradient(45deg, rgba(255, 94, 77, 0.3), rgba(255, 154, 0, 0.2));"></div>
-    <div id="nightOverlay" class="overlay" style="background: linear-gradient(45deg, rgba(25, 25, 112, 0.4), rgba(72, 61, 139, 0.3));"></div>
-
-    <main class="glass-effect" role="main">
-        <h2 aria-label="House Price Prediction Tool">🏠 House Price Prediction ✨</h2>
-
-        <form id="predictionForm" method="POST" action="/predict" novalidate>
-            <div class="form-group">
-                <label for="bedrooms">🛏️ Bedrooms</label>
-                <input type="number" class="form-control" id="bedrooms" name="bedrooms" required min="1" max="20" placeholder="e.g., 3">
+    <div class="card">
+        <h2>Delhi House Price Prediction</h2>
+      <a href="/about"> About Project</a>
+        <form method="POST">
+            <div class="mb-3">
+                <label for="BHK" class="form-label">BHK (Bedrooms)</label>
+                <input type="number" class="form-control" id="BHK" name="BHK" min="1" max="10" required />
             </div>
-
-            <div class="form-group">
-                <label for="bathrooms">🚿 Bathrooms</label>
-                <input type="number" class="form-control" id="bathrooms" name="bathrooms" required min="0.5" step="0.5" max="15" placeholder="e.g., 2.5">
+            <div class="mb-3">
+                <label for="Bathroom" class="form-label">Bathrooms</label>
+                <input type="number" class="form-control" id="Bathroom" name="Bathroom" min="1" max="10" required />
             </div>
-
-            <div class="form-group">
-                <label for="sqft_living">📐 Sqft Living</label>
-                <input type="number" class="form-control" id="sqft_living" name="sqft_living" required min="200" max="20000" placeholder="e.g., 2000">
+            <div class="mb-3">
+                <label for="Parking" class="form-label">Parking Spaces</label>
+                <input type="number" class="form-control" id="Parking" name="Parking" min="0" max="5" required />
             </div>
-
-            <div class="form-group">
-                <label for="sqft_lot">🌿 Sqft Lot</label>
-                <input type="number" class="form-control" id="sqft_lot" name="sqft_lot" required min="500" max="200000" placeholder="e.g., 5000">
+            <div class="mb-3">
+                <label for="Per_Sqft" class="form-label">Area (Per Sqft)</label>
+                <input type="number" step="0.01" class="form-control" id="Per_Sqft" name="Per_Sqft" min="0" required />
             </div>
-
-            <div class="form-group">
-                <label for="floors">🏢 Floors</label>
-                <input type="number" class="form-control" id="floors" name="floors" required min="1" max="5" step="0.5" placeholder="e.g., 2">
+            <div class="mb-3">
+                <label for="Income" class="form-label">Income</label>
+                <input type="number" step="0.01" class="form-control" id="Income" name="Income" min="0" required />
             </div>
-
-            <div class="form-group">
-                <label for="waterfront">🌊 Waterfront (1 = Yes, 0 = No)</label>
-                <input type="number" class="form-control" id="waterfront" name="waterfront" required min="0" max="1" placeholder="0 or 1">
-            </div>
-
-            <div class="form-group">
-                <label for="view">👀 View (0-4 scale)</label>
-                <input type="number" class="form-control" id="view" name="view" required min="0" max="4" placeholder="e.g., 3">
-            </div>
-
-            <div class="form-group">
-                <label for="condition">⭐ Condition (1-5 scale)</label>
-                <input type="number" class="form-control" id="condition" name="condition" required min="1" max="5" placeholder="e.g., 4">
-            </div>
-
-            <div class="form-group">
-                <label for="sqft_above">⬆️ Sqft Above Ground</label>
-                <input type="number" class="form-control" id="sqft_above" name="sqft_above" required min="200" max="15000" placeholder="e.g., 1500">
-            </div>
-
-            <div class="form-group">
-                <label for="sqft_basement">🏠 Sqft Basement</label>
-                <input type="number" class="form-control" id="sqft_basement" name="sqft_basement" required min="0" max="5000" placeholder="e.g., 500">
-            </div>
-
-            <div class="form-group">
-                <label for="yr_built">📅 Year Built</label>
-                <input type="number" class="form-control" id="yr_built" name="yr_built" required min="1800" max="2025" placeholder="e.g., 2005">
-            </div>
-
-            <div class="form-group">
-                <label for="yr_renovated">🔨 Year Renovated (0 if never)</label>
-                <input type="number" class="form-control" id="yr_renovated" name="yr_renovated" required min="0" max="2025" placeholder="e.g., 0">
-            </div>
-
-            <button type="submit" class="btn btn-primary" id="predictBtn">
-                💰 Predict My Dream House Price! 🎯
-            </button>
+            <button type="submit" class="btn btn-primary w-100">Predict Price</button>
         </form>
 
-        <h3 id="prediction" aria-live="polite">{{ prediction_text }}</h3>
-    </main>
+        {% if prediction %}
+        <div class="result mt-4">
+            <p>Predicted House Price:</p>
+            <strong>{{ prediction }}</strong>
+        </div>
+        {% endif %}
+    </div>
 
-    <footer class="footer" role="contentinfo">
-        <p>✨ Created with ❤️ by Karanvir Dhaliwal ✨</p>
-        <!-- Removed contact info since it's now at the top -->
-    </footer>
-
-    <script>
-        // ========== TIME-BASED OVERLAY ==========
-        function setTimeBasedBackground() {
-            const hour = new Date().getHours();
-            const overlays = {
-                sunrise: document.getElementById('sunriseOverlay'),
-                sunset: document.getElementById('sunsetOverlay'),
-                night: document.getElementById('nightOverlay')
-            };
-
-            // Reset all
-            Object.values(overlays).forEach(el => el.classList.remove('active'));
-
-            // Apply based on time
-            if (hour >= 5 && hour < 11) {
-                overlays.sunrise.classList.add('active');
-            } else if (hour >= 17 && hour < 20) {
-                overlays.sunset.classList.add('active');
-            } else if (hour >= 20 || hour < 5) {
-                overlays.night.classList.add('active');
-            }
-        }
-
-        // ========== FORM VALIDATION ==========
-        function validateForm(event) {
-            event.preventDefault();
-            
-            const form = event.target;
-            const bedrooms = parseFloat(document.getElementById('bedrooms').value) || 0;
-            const bathrooms = parseFloat(document.getElementById('bathrooms').value) || 0;
-            const sqftLiving = parseFloat(document.getElementById('sqft_living').value) || 0;
-
-            // Basic client-side validation (server should also validate)
-            if (bedrooms > bathrooms * 4) {
-                alert('🤔 That\'s a lot of bedrooms per bathroom! Your guests might form a very long queue!');
-                return;
-            }
-
-            if (bedrooms > 15) {
-                if (!confirm('🏰 Wow! That\'s practically a palace! Are you sure?')) {
-                    return;
-                }
-            }
-
-            if (sqftLiving < 300) {
-                if (!confirm('🏠 That\'s quite cozy! Are you sure it\'s not a dollhouse?')) {
-                    return;
-                }
-            }
-
-            // Submit if valid
-            form.submit();
-        }
-
-        // ========== PREDICTION DISPLAY ==========
-        function showPrediction() {
-            const predictionElement = document.getElementById('prediction');
-            if (predictionElement.textContent.trim() !== '') {
-                predictionElement.classList.add('show');
-            }
-        }
-
-        // ========== INITIALIZATION ==========
-        document.addEventListener('DOMContentLoaded', function() {
-            setTimeBasedBackground();
-            setInterval(setTimeBasedBackground, 60000); // Update every minute
-
-            // Attach form validation
-            const form = document.getElementById('predictionForm');
-            if (form) {
-                form.addEventListener('submit', validateForm);
-            }
-
-            // Show prediction if exists
-            showPrediction();
-
-            // Remove any heavy animations or debug features
-            if (typeof console !== 'undefined' && console.clear) {
-                console.clear();
-            }
-        });
-
-        // ========== ACCESSIBILITY: REDUCED MOTION ==========
-        if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-            document.body.style.animation = 'none';
-            const glassEffect = document.querySelector('.glass-effect::before');
-            if (glassEffect) glassEffect.style.animation = 'none';
-        }
-    </script>
-
-    <!-- Bootstrap JS (optional, for advanced components) -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    <!-- Bootstrap JS (optional) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
