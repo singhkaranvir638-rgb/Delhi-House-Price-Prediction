@@ -8,282 +8,474 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        /* Animated Background */
+        /* Enhanced Animated Background */
         body {
             margin: 0;
             padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 75%, #f5576c 100%);
             color: #fff;
             min-height: 100vh;
             overflow-x: hidden;
             position: relative;
+            animation: backgroundShift 10s ease-in-out infinite;
         }
 
-        /* Floating Background Particles */
+        @keyframes backgroundShift {
+            0%, 100% { background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 75%, #f5576c 100%); }
+            50% { background: linear-gradient(135deg, #f093fb 0%, #f5576c 25%, #667eea 75%, #764ba2 100%); }
+        }
+
+        /* Enhanced Floating Particles */
         body::before {
             content: "";
-            position: absolute;
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             background-image: 
-                radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px),
-                radial-gradient(circle, rgba(255,255,255,0.05) 2px, transparent 2px);
-            background-size: 50px 50px, 80px 80px;
-            animation: float 15s linear infinite;
+                radial-gradient(circle, rgba(255,255,255,0.15) 2px, transparent 2px),
+                radial-gradient(circle, rgba(255,215,0,0.1) 1px, transparent 1px),
+                radial-gradient(circle, rgba(255,255,255,0.05) 3px, transparent 3px);
+            background-size: 60px 60px, 40px 40px, 100px 100px;
+            animation: floatComplex 20s linear infinite;
             pointer-events: none;
             z-index: -1;
         }
 
-        @keyframes float {
-            0% { transform: translateY(0) rotate(0deg); }
-            100% { transform: translateY(-20px) rotate(360deg); }
+        @keyframes floatComplex {
+            0% { transform: translateY(0) rotate(0deg) scale(1); }
+            33% { transform: translateY(-10px) rotate(120deg) scale(1.1); }
+            66% { transform: translateY(-5px) rotate(240deg) scale(0.9); }
+            100% { transform: translateY(-25px) rotate(360deg) scale(1); }
         }
 
-        /* Left Personal Panel */
+        /* Enhanced Personal Panel */
         .personal-panel {
             position: fixed;
             top: 0;
             left: 0;
-            width: 280px;
+            width: 300px;
             height: 100vh;
-            background: rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-right: 1px solid rgba(255, 255, 255, 0.15);
-            padding: 40px 25px;
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border-right: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 30px 25px;
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: flex-start;
             align-items: center;
             z-index: 1000;
-            transition: all 0.4s ease;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 0 40px rgba(0,0,0,0.1);
+            overflow-y: auto;
         }
 
         .personal-panel:hover {
-            background: rgba(255, 255, 255, 0.12);
-            box-shadow: 0 0 30px rgba(108, 99, 255, 0.3);
+            background: rgba(255, 255, 255, 0.18);
+            box-shadow: 0 0 60px rgba(108, 99, 255, 0.4);
+            transform: translateX(5px);
         }
 
         .avatar {
-            width: 100px;
-            height: 100px;
+            width: 120px;
+            height: 120px;
             border-radius: 50%;
-            background: linear-gradient(135deg, #ff9a9e, #fecfef);
+            background: linear-gradient(135deg, #ff6b6b, #feca57, #48dbfb, #ff9ff3);
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 25px;
-            font-size: 2.5rem;
+            margin-bottom: 30px;
+            font-size: 3rem;
             color: #fff;
             font-weight: bold;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+            animation: avatarGlow 3s ease-in-out infinite;
+            position: relative;
+            overflow: hidden;
+            background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><radialGradient id="grad1" cx="50%" cy="30%"><stop offset="0%" style="stop-color:%23ffffff;stop-opacity:0.8" /><stop offset="100%" style="stop-color:%23ffffff;stop-opacity:0" /></radialGradient></defs><circle cx="50" cy="35" r="15" fill="%23ffffff" opacity="0.9"/><path d="M50 55 C35 55, 25 65, 25 75 L75 75 C75 65, 65 55, 50 55 Z" fill="%23ffffff" opacity="0.9"/><circle cx="50" cy="50" r="45" fill="none" stroke="url(%23grad1)" stroke-width="2"/></svg>');
+            background-size: 80%;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        @keyframes avatarGlow {
+            0%, 100% { box-shadow: 0 15px 35px rgba(255,107,107,0.4); }
+            50% { box-shadow: 0 20px 40px rgba(72,219,251,0.4); }
+        }
+
+        .avatar::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
+            transform: rotate(45deg);
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
         }
 
         .personal-info h3 {
-            font-size: 1.4rem;
-            font-weight: 700;
-            margin-bottom: 5px;
-            letter-spacing: 0.5px;
+            font-size: 1.6rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+            background: linear-gradient(45deg, #ffd700, #ff8c00, #ff6b6b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: textGlow 2s ease-in-out infinite;
+        }
+
+        @keyframes textGlow {
+            0%, 100% { filter: drop-shadow(0 0 5px rgba(255,215,0,0.5)); }
+            50% { filter: drop-shadow(0 0 10px rgba(255,140,0,0.8)); }
         }
 
         .personal-info p {
-            margin: 5px 0;
-            font-size: 0.95rem;
+            margin: 8px 0;
+            font-size: 1rem;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .personal-info p:hover {
+            transform: translateX(5px);
+            color: #ffd700;
         }
 
         .personal-info .label {
-            font-weight: 600;
+            font-weight: 700;
             color: #ffd700;
+            text-shadow: 0 0 5px rgba(255,215,0,0.5);
         }
 
         .contact-tag {
             margin-top: 20px;
+            margin-bottom: 30px;
             font-style: italic;
-            font-size: 0.9rem;
-            background: rgba(255, 215, 0, 0.15);
-            padding: 8px 15px;
-            border-radius: 20px;
-            border-left: 3px solid #ffd700;
+            font-size: 0.95rem;
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 140, 0, 0.2));
+            padding: 12px 20px;
+            border-radius: 25px;
+            border: 2px solid rgba(255, 215, 0, 0.3);
+            animation: pulse 2s infinite;
+            text-align: center;
         }
 
-        /* Main Card */
-        .main-card {
-            background: rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border-radius: 25px;
-            padding: 50px;
+        /* Panel Navigation Links */
+        .panel-links {
             width: 100%;
-            max-width: 550px;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 20px;
+        }
+
+        .panel-links a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 15px 20px;
+            margin: 10px 0;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(10px);
+        }
+
+        .panel-links a:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateX(5px) scale(1.02);
+            box-shadow: 0 5px 20px rgba(255, 215, 0, 0.3);
+            border-color: rgba(255, 215, 0, 0.5);
+        }
+
+        .panel-links a i {
+            color: #ffd700;
+            font-size: 1.1rem;
+            width: 20px;
+            text-align: center;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(255, 215, 0, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0); }
+        }
+
+        /* Enhanced Main Card */
+        .main-card {
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 30px;
+            padding: 60px;
+            width: 100%;
+            max-width: 600px;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             margin: 120px auto;
-            animation: slideIn 0.8s ease-out;
+            animation: slideInBounce 1s cubic-bezier(0.68, -0.55, 0.265, 1.55);
             position: relative;
             z-index: 10;
+            overflow: hidden;
         }
 
-        @keyframes slideIn {
-            from { opacity: 0; transform: translateY(40px); }
-            to { opacity: 1; transform: translateY(0); }
+        .main-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            animation: cardShine 3s infinite;
+        }
+
+        @keyframes cardShine {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        @keyframes slideInBounce {
+            0% { opacity: 0; transform: translateY(60px) scale(0.8); }
+            60% { opacity: 1; transform: translateY(-10px) scale(1.05); }
+            100% { opacity: 1; transform: translateY(0) scale(1); }
         }
 
         h1 {
             text-align: center;
-            font-weight: 800;
-            font-size: 2.2rem;
-            margin-bottom: 35px;
-            text-shadow: 0 3px 6px rgba(0,0,0,0.2);
-            background: linear-gradient(to right, #ffd700, #ff8c00);
+            font-weight: 900;
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            background: linear-gradient(45deg, #ffd700, #ff8c00, #ff6b6b, #48dbfb);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            text-shadow: none;
+            position: relative;
+            z-index: 2;
         }
 
         .form-label {
-            font-weight: 600;
-            margin-top: 15px;
+            font-weight: 700;
+            margin-top: 20px;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
+            font-size: 1.1rem;
+            color: #fff;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
         }
 
-        .form-control {
-            background: rgba(255, 255, 255, 0.95) !important;
-            border: none !important;
-            padding: 14px 20px;
+        .form-label i {
+            color: #ffd700;
+            font-size: 1.2rem;
+        }
+
+        .form-control, .form-control select {
+            background: rgba(255, 255, 255, 0.98) !important;
+            border: 2px solid transparent !important;
+            padding: 18px 24px;
             color: #333;
-            font-weight: 500;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-            transition: all 0.3s ease;
-            border-radius: 12px;
+            font-weight: 600;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 16px;
+            font-size: 1rem;
         }
 
         .form-control:focus {
             background: #fff !important;
-            box-shadow: 0 6px 20px rgba(108, 99, 255, 0.4);
-            transform: translateY(-2px);
+            border: 2px solid #ffd700 !important;
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.3);
+            transform: translateY(-3px) scale(1.02);
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, #6c63ff, #5049ff);
+            background: linear-gradient(135deg, #ff6b6b, #feca57, #48dbfb, #ff9ff3);
+            background-size: 300% 300%;
             border: none;
-            padding: 16px;
-            font-weight: 600;
-            letter-spacing: 0.8px;
-            border-radius: 14px;
-            margin-top: 15px;
-            transition: all 0.3s ease;
-            font-size: 1.1rem;
+            padding: 20px;
+            font-weight: 700;
+            letter-spacing: 1.2px;
+            border-radius: 18px;
+            margin-top: 25px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            position: relative;
+            overflow: hidden;
+            animation: gradientShift 4s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
         .btn-primary:hover {
-            background: linear-gradient(135deg, #5a52e0, #4037d8);
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(108, 99, 255, 0.6);
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 40px rgba(255, 107, 107, 0.4);
+            animation-duration: 1s;
+        }
+
+        .btn-primary:active {
+            transform: translateY(-2px) scale(1.02);
         }
 
         .result {
-            margin-top: 40px;
-            padding: 30px;
-            background: rgba(255, 215, 0, 0.12);
-            border-radius: 20px;
-            border-left: 6px solid #ffd700;
-            animation: pulseGlow 2s infinite;
+            margin-top: 50px;
+            padding: 40px;
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.15), rgba(255, 140, 0, 0.15));
+            border-radius: 25px;
+            border: 2px solid rgba(255, 215, 0, 0.3);
+            animation: resultPulse 2s infinite;
             text-align: center;
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(15px);
+            position: relative;
+            overflow: hidden;
         }
 
-        @keyframes pulseGlow {
-            0% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.4); }
-            70% { box-shadow: 0 0 0 12px rgba(255, 215, 0, 0); }
+        .result::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,215,0,0.1), transparent);
+            animation: resultShimmer 3s infinite;
+        }
+
+        @keyframes resultShimmer {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        @keyframes resultPulse {
+            0% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.6); }
+            70% { box-shadow: 0 0 0 20px rgba(255, 215, 0, 0); }
             100% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0); }
         }
 
         .result p {
-            margin-bottom: 8px;
-            font-size: 1.15rem;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
             opacity: 0.95;
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
+            position: relative;
+            z-index: 2;
         }
 
         .result strong {
-            font-size: 2rem;
-            color: #ffd700;
-            font-weight: 800;
-            text-shadow: 0 3px 8px rgba(0,0,0,0.3);
+            font-size: 2.5rem;
+            background: linear-gradient(45deg, #ffd700, #ff8c00);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 900;
+            position: relative;
+            z-index: 2;
+            animation: priceGlow 2s ease-in-out infinite;
         }
 
-        /* Top Right Corner Links */
+        @keyframes priceGlow {
+            0%, 100% { filter: drop-shadow(0 0 10px rgba(255,215,0,0.6)); }
+            50% { filter: drop-shadow(0 0 20px rgba(255,140,0,0.8)); }
+        }
+
+        /* Enhanced Top Right Corner Links - Now Empty */
         .top-links {
-            position: fixed;
-            top: 30px;
-            right: 30px;
-            z-index: 2000;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
+            display: none;
         }
 
-        .top-links a {
-            color: #fff;
-            text-decoration: none;
-            padding: 12px 24px;
-            border-radius: 50px;
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(10px);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            font-size: 0.95rem;
-        }
-
-        .top-links a:hover {
-            background: rgba(255, 255, 255, 0.25);
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
-        }
-
-        /* Modal Styling */
+        /* Enhanced Modal Styling */
         .modal-content {
-            background: rgba(30, 30, 50, 0.95);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
+            background: linear-gradient(135deg, rgba(30, 30, 50, 0.95), rgba(60, 60, 80, 0.95));
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 25px;
             overflow: hidden;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.4);
         }
 
         .modal-header {
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 25px 30px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 30px 35px;
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 140, 0, 0.1));
         }
 
         .modal-body {
-            padding: 30px;
+            padding: 35px;
             font-size: 1.1rem;
-            line-height: 1.7;
+            line-height: 1.8;
         }
 
         .modal-title {
-            font-weight: 700;
-            font-size: 1.5rem;
-            color: #ffd700;
+            font-weight: 800;
+            font-size: 1.6rem;
+            background: linear-gradient(45deg, #ffd700, #ff8c00);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .btn-close {
             color: #fff;
             opacity: 0.8;
+            font-size: 1.2rem;
+        }
+
+        .btn-close:hover {
+            opacity: 1;
+            transform: scale(1.1);
+        }
+
+        .alert {
+            border-radius: 15px;
+            border: none;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .alert-info {
+            background: linear-gradient(135deg, rgba(64, 120, 255, 0.2), rgba(100, 150, 255, 0.2));
+            border-left: 4px solid #4078ff;
+        }
+
+        .alert-warning {
+            background: linear-gradient(135deg, rgba(255, 193, 7, 0.2), rgba(255, 150, 0, 0.2));
+            border-left: 4px solid #ffc107;
+        }
+
+        /* Enhanced Responsive Design */
+        @media (max-width: 1200px) {
+            .personal-panel {
+                width: 250px;
+                padding: 30px 20px;
+            }
+            
+            .main-card {
+                max-width: 500px;
+                padding: 40px;
+            }
         }
 
         @media (max-width: 992px) {
@@ -294,7 +486,24 @@
                 position: relative;
                 margin-bottom: 40px;
                 border-right: none;
-                border-bottom: 1px solid rgba(255,255,255,0.1);
+                border-bottom: 1px solid rgba(255,255,255,0.2);
+                transform: none;
+                justify-content: flex-start;
+            }
+
+            .personal-panel .panel-links {
+                display: flex;
+                flex-direction: row;
+                gap: 15px;
+                margin-top: 20px;
+            }
+
+            .personal-panel .panel-links a {
+                flex: 1;
+                justify-content: center;
+                margin: 0;
+                padding: 12px 16px;
+                font-size: 0.9rem;
             }
 
             .main-card {
@@ -303,40 +512,61 @@
                 max-width: 95%;
             }
 
-            .top-links {
-                top: 10px;
-                right: 10px;
+            h1 {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .main-card {
+                padding: 25px 20px;
+                border-radius: 20px;
+            }
+            
+            .personal-panel {
+                padding: 25px 15px;
+            }
+            
+            .avatar {
+                width: 100px;
+                height: 100px;
+                font-size: 2.5rem;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .result strong {
+                font-size: 2rem;
             }
         }
     </style>
 </head>
 <body>
+        <div class="avatar"></div>
+        
+        <div class="personal-info text-center">
+            <h3>👨‍💻 Karanvir Singh</h3>
+            <p><i class="fas fa-phone"></i> <span class="label">📱 Phone:</span> +91 6280215810</p>
+            <p><i class="fas fa-envelope"></i> <span class="label">📧 Email:</span> singhkaranvir638@gmail.com</p>
+        </div>
 
     <!-- Left Personal Info Panel -->
     <div class="personal-panel">
-        <div class="avatar">
-            <i class="fas fa-user"></i>
+        <div class="contact-tag">
+            <i class="fas fa-lightbulb me-2"></i> 📞 Contact for more info
         </div>
-        <div class="personal-info text-center">
-            <h3>Karanvir Singh</h3>
-            <p><i class="fas fa-phone"></i> <span class="label">Phone:</span> +91 6280215810</p>
-            <p><i class="fas fa-envelope"></i> <span class="label">Email:</span> singhkaranvir638@gmail.com</p>
-            <div class="contact-tag">
-                <i class="fas fa-lightbulb me-2"></i> Contact for more info
-            </div>
+        
+        <div class="panel-links">
+            <a href="#" data-bs-toggle="modal" data-bs-target="#aboutModal">
+                <i class="fas fa-info-circle"></i> 📊 About Project & File Details
+            </a>
         </div>
     </div>
 
-    <!-- Top Right Corner Links (Modals) -->
+    <!-- Top Right Corner Links (Now Hidden) -->
     <div class="top-links">
-        <!-- About Project Modal Trigger -->
-        <a href="#" data-bs-toggle="modal" data-bs-target="#aboutModal">
-            <i class="fas fa-info-circle"></i> About Project
-        </a>
-        <!-- File Details Modal Trigger -->
-        <a href="#" data-bs-toggle="modal" data-bs-target="#fileModal">
-            <i class="fas fa-file-alt"></i> File Details
-        </a>
     </div>
 
     <!-- Main Prediction Card -->
@@ -381,58 +611,72 @@
         {% endif %}
     </div>
 
-    <!-- About Project Modal -->
+    <!-- About Project Modal (Combined with File Details) -->
     <div class="modal fade" id="aboutModal" tabindex="-1" aria-labelledby="aboutModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="aboutModalLabel"><i class="fas fa-info-circle me-2"></i> About This Project</h5>
+                    <h5 class="modal-title" id="aboutModalLabel"><i class="fas fa-info-circle me-2"></i> 🏠 About Project & File Details</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p>
-                        <strong>Delhi House Price Prediction</strong> is an intelligent web application built to estimate property prices in Delhi based on key features like BHK, bathrooms, parking, area, and furnishing status.
-                    </p>
-                    <p>
-                        This project leverages machine learning models trained on real estate data to provide accurate, instant price predictions — helping buyers, sellers, and renters make informed decisions.
-                    </p>
-                    <p>
-                        Developed with ❤️ by <strong>Karanvir Singh</strong> — aiming to simplify real estate valuation through technology.
-                    </p>
-                    <div class="alert alert-info" style="background: rgba(64, 120, 255, 0.15); border-left: 4px solid #4078ff;">
-                        <i class="fas fa-lightbulb me-2"></i> Tip: Try different combinations to see how features impact price!
+                    <div style="border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 25px; margin-bottom: 25px;">
+                        <h6 style="color: #ffd700; font-weight: 700; margin-bottom: 20px;">
+                            <i class="fas fa-rocket me-2"></i> 🚀 About This Project:
+                        </h6>
+                        <p>
+                            <strong>🏠 Delhi House Price Prediction</strong> is an advanced machine learning-powered web application designed to provide accurate real estate valuations for properties in Delhi, India's capital city.
+                        </p>
+                        
+                        <h6 style="color: #ffd700; font-weight: 700; margin: 25px 0 15px 0;">
+                            <i class="fas fa-cogs me-2"></i> ✨ Key Features:
+                        </h6>
+                        <ul style="line-height: 1.8;">
+                            <li><strong>🎯 Smart Predictions:</strong> Uses trained ML models on real Delhi property data</li>
+                            <li><strong>🏗️ Multiple Parameters:</strong> Considers BHK, bathrooms, parking, area, and furnishing</li>
+                            <li><strong>⚡ Instant Results:</strong> Get price estimates in seconds, not days</li>
+                            <li><strong>📱 User-Friendly Interface:</strong> Beautiful, responsive design for all devices</li>
+                            <li><strong>📈 Accurate Valuations:</strong> Based on current market trends and historical data</li>
+                        </ul>
+                        
+                        <div class="alert alert-info" style="background: linear-gradient(135deg, rgba(64, 120, 255, 0.2), rgba(100, 150, 255, 0.2)); border-left: 4px solid #4078ff;">
+                            <i class="fas fa-lightbulb me-2"></i> <strong>💡 Pro Tip:</strong> Try different combinations of features to understand how each parameter affects property valuation in Delhi's dynamic real estate market!
+                        </div>
                     </div>
+
+                    <div>
+                        <h6 style="color: #ffd700; font-weight: 700; margin-bottom: 20px;">
+                            <i class="fas fa-folder-open me-2"></i> 📁 Project Structure & Files:
+                        </h6>
+                        <ul style="line-height: 2;">
+                            <li><strong>🐍 app.py</strong> - Main Flask application with ML model integration</li>
+                            <li><strong>🤖 model.pkl</strong> - Trained machine learning model for price prediction</li>
+                            <li><strong>🎨 templates/index.html</strong> - Frontend interface with enhanced styling</li>
+                            <li><strong>📂 static/</strong> - CSS, JS, and image assets</li>
+                            <li><strong>📊 dataset.csv</strong> - Training data from Delhi real estate market</li>
+                            <li><strong>📋 requirements.txt</strong> - Python dependencies and packages</li>
+                        </ul>
+                        
+                        <h6 style="color: #ffd700; font-weight: 700; margin: 30px 0 20px 0;">
+                            <i class="fas fa-code me-2"></i> 💻 Technology Stack:
+                        </h6>
+                        <p>Built with <strong>🐍 Python Flask</strong> backend, <strong>🤖 Machine Learning</strong> algorithms, <strong>🎨 Bootstrap 5</strong> frontend, and enhanced with modern <strong>✨ CSS3 animations</strong> and <strong>⚡ JavaScript</strong> interactions.</p>
+                        
+                        <div class="alert alert-warning" style="background: linear-gradient(135deg, rgba(255, 193, 7, 0.2), rgba(255, 150, 0, 0.2)); border-left: 4px solid #ffc107;">
+                            <i class="fas fa-question-circle me-2"></i> <strong>🤔 Need Help or Found an Issue?</strong><br>
+                            Whether you've discovered a bug, want to suggest a new feature, need technical support, or just want to share feedback - I'm here to help!
+                        </div>
+                    </div>
+                    
+                    <p style="text-align: center; margin-top: 30px; font-style: italic;">
+                        Developed with ❤️ and ☕ by <strong style="color: #ffd700;">👨‍💻 Karanvir Singh</strong><br>
+                        <small>🌉 Bridging technology and real estate for smarter decisions</small>
+                    </p>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- File Details Modal -->
-    <div class="modal fade" id="fileModal" tabindex="-1" aria-labelledby="fileModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="fileModalLabel"><i class="fas fa-file-alt me-2"></i> File a Query / Report</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <p>
-                        Found an issue? Want to suggest a feature? Or just say hello? I’d love to hear from you!
-                    </p>
-                    <ul>
-                        <li><strong>Email:</strong> singhkaranvir638@gmail.com</li>
-                        <li><strong>Phone:</strong> +91 6280215810</li>
-                        <li><strong>Response Time:</strong> Within 24 hours</li>
-                    </ul>
-                    <div class="alert alert-warning" style="background: rgba(255, 193, 7, 0.15); border-left: 4px solid #ffc107;">
-                        <i class="fas fa-exclamation-triangle me-2"></i> Please include “House Price App” in your subject line for faster response.
-                    </div>
-                </div>
-            </div>
-        </div>
+    <!-- File Details Modal (Now Hidden/Unused) -->
+    <div class="modal fade" id="fileModal" tabindex="-1" style="display: none;">
     </div>
-
-    <!-- Bootstrap Bundle JS (includes Popper) -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
