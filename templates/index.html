@@ -9,7 +9,7 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
         /* Enhanced Animated Background */
         body {
@@ -21,12 +21,14 @@
             min-height: 100vh;
             overflow-x: hidden;
             position: relative;
-            animation: backgroundShift 10s ease-in-out infinite;
+            animation: backgroundShift 15s ease-in-out infinite;
         }
 
         @keyframes backgroundShift {
             0%, 100% { background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 75%, #f5576c 100%); }
-            50% { background: linear-gradient(135deg, #f093fb 0%, #f5576c 25%, #667eea 75%, #764ba2 100%); }
+            25% { background: linear-gradient(135deg, #f093fb 0%, #f5576c 25%, #667eea 75%, #764ba2 100%); }
+            50% { background: linear-gradient(135deg, #764ba2 0%, #667eea 25%, #f5576c 75%, #f093fb 100%); }
+            75% { background: linear-gradient(135deg, #f5576c 0%, #f093fb 25%, #764ba2 75%, #667eea 100%); }
         }
 
         /* Enhanced Floating Particles */
@@ -38,198 +40,256 @@
             width: 100%;
             height: 100%;
             background-image: 
-                radial-gradient(circle, rgba(255,255,255,0.15) 2px, transparent 2px),
-                radial-gradient(circle, rgba(255,215,0,0.1) 1px, transparent 1px),
-                radial-gradient(circle, rgba(255,255,255,0.05) 3px, transparent 3px);
-            background-size: 60px 60px, 40px 40px, 100px 100px;
-            animation: floatComplex 20s linear infinite;
+                radial-gradient(circle, rgba(255,255,255,0.2) 2px, transparent 2px),
+                radial-gradient(circle, rgba(255,215,0,0.15) 1px, transparent 1px),
+                radial-gradient(circle, rgba(255,255,255,0.1) 3px, transparent 3px);
+            background-size: 80px 80px, 50px 50px, 120px 120px;
+            animation: floatComplex 25s linear infinite;
             pointer-events: none;
-            z-index: -1;
+            z-index: 0;
         }
 
         @keyframes floatComplex {
             0% { transform: translateY(0) rotate(0deg) scale(1); }
-            33% { transform: translateY(-10px) rotate(120deg) scale(1.1); }
-            66% { transform: translateY(-5px) rotate(240deg) scale(0.9); }
-            100% { transform: translateY(-25px) rotate(360deg) scale(1); }
+            25% { transform: translateY(-15px) rotate(90deg) scale(1.1); }
+            50% { transform: translateY(-30px) rotate(180deg) scale(0.9); }
+            75% { transform: translateY(-15px) rotate(270deg) scale(1.05); }
+            100% { transform: translateY(-40px) rotate(360deg) scale(1); }
         }
 
-        /* Enhanced Personal Panel */
+        /* Container to hold everything */
+        .main-container {
+            display: flex;
+            min-height: 100vh;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Left Personal Panel */
         .personal-panel {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 300px;
-            height: 100vh;
-            background: rgba(255, 255, 255, 0.12);
-            backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
-            border-right: 1px solid rgba(255, 255, 255, 0.2);
-            padding: 40px 25px;
+            width: 320px;
+            min-height: 100vh;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            border-right: 2px solid rgba(255, 255, 255, 0.2);
+            padding: 40px 30px;
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            align-items: center;
+            justify-content: space-between;
+            position: fixed;
+            left: 0;
+            top: 0;
             z-index: 1000;
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 0 40px rgba(0,0,0,0.1);
+            box-shadow: 5px 0 30px rgba(0,0,0,0.15);
         }
 
         .personal-panel:hover {
-            background: rgba(255, 255, 255, 0.18);
-            box-shadow: 0 0 60px rgba(108, 99, 255, 0.4);
-            transform: translateX(5px);
+            background: rgba(255, 255, 255, 0.2);
+            box-shadow: 5px 0 50px rgba(108, 99, 255, 0.3);
         }
 
         /* Contact tag at the top */
         .contact-tag {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            right: 20px;
-            font-style: italic;
-            font-size: 0.9rem;
-            background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 140, 0, 0.2));
-            padding: 12px 20px;
-            border-radius: 25px;
-            border: 2px solid rgba(255, 215, 0, 0.3);
-            animation: pulse 2s infinite;
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.3), rgba(255, 140, 0, 0.3));
+            padding: 15px 25px;
+            border-radius: 30px;
+            border: 2px solid rgba(255, 215, 0, 0.4);
+            text-align: center;
+            font-weight: 700;
+            font-size: 0.95rem;
+            animation: contactGlow 3s ease-in-out infinite;
+            margin-bottom: 40px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        @keyframes contactGlow {
+            0%, 100% { 
+                box-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
+                transform: scale(1);
+            }
+            50% { 
+                box-shadow: 0 0 30px rgba(255, 215, 0, 0.6);
+                transform: scale(1.02);
+            }
+        }
+
+        .contact-tag:hover {
+            transform: scale(1.05);
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.4), rgba(255, 140, 0, 0.4));
+        }
+
+        /* Center content (avatar + info) */
+        .center-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             text-align: center;
         }
 
-        @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.4); }
-            70% { box-shadow: 0 0 0 10px rgba(255, 215, 0, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0); }
-        }
-
         .avatar {
-            width: 120px;
-            height: 120px;
+            width: 140px;
+            height: 140px;
             border-radius: 50%;
-            background: linear-gradient(135deg, #ff6b6b, #feca57, #48dbfb, #ff9ff3);
+            background: linear-gradient(135deg, #ff6b6b, #feca57, #48dbfb, #ff9ff3, #54a0ff);
+            background-size: 300% 300%;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 30px;
-            font-size: 3rem;
+            margin-bottom: 25px;
+            font-size: 3.5rem;
             color: #fff;
             font-weight: bold;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
-            animation: avatarGlow 3s ease-in-out infinite;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            animation: avatarAnimation 8s ease-in-out infinite;
             position: relative;
             overflow: hidden;
-            background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><radialGradient id="grad1" cx="50%" cy="30%"><stop offset="0%" style="stop-color:%23ffffff;stop-opacity:0.8" /><stop offset="100%" style="stop-color:%23ffffff;stop-opacity:0" /></radialGradient></defs><circle cx="50" cy="35" r="15" fill="%23ffffff" opacity="0.9"/><path d="M50 55 C35 55, 25 65, 25 75 L75 75 C75 65, 65 55, 50 55 Z" fill="%23ffffff" opacity="0.9"/><circle cx="50" cy="50" r="45" fill="none" stroke="url(%23grad1)" stroke-width="2"/></svg>');
-            background-size: 80%;
+            background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><radialGradient id="grad1" cx="50%" cy="30%"><stop offset="0%" style="stop-color:%23ffffff;stop-opacity:0.9" /><stop offset="100%" style="stop-color:%23ffffff;stop-opacity:0" /></radialGradient></defs><circle cx="50" cy="35" r="18" fill="%23ffffff" opacity="0.95"/><path d="M50 58 C32 58, 20 68, 20 78 L80 78 C80 68, 68 58, 50 58 Z" fill="%23ffffff" opacity="0.95"/><circle cx="50" cy="50" r="48" fill="none" stroke="url(%23grad1)" stroke-width="3"/></svg>');
+            background-size: 85%;
             background-repeat: no-repeat;
             background-position: center;
         }
 
-        @keyframes avatarGlow {
-            0%, 100% { box-shadow: 0 15px 35px rgba(255,107,107,0.4); }
-            50% { box-shadow: 0 20px 40px rgba(72,219,251,0.4); }
+        @keyframes avatarAnimation {
+            0%, 100% { 
+                background-position: 0% 50%;
+                box-shadow: 0 20px 50px rgba(255,107,107,0.4);
+                transform: rotate(0deg);
+            }
+            25% { 
+                background-position: 100% 50%;
+                box-shadow: 0 25px 55px rgba(72,219,251,0.4);
+                transform: rotate(2deg);
+            }
+            50% { 
+                background-position: 50% 100%;
+                box-shadow: 0 30px 60px rgba(254,202,87,0.4);
+                transform: rotate(-1deg);
+            }
+            75% { 
+                background-position: 50% 0%;
+                box-shadow: 0 25px 55px rgba(255,159,243,0.4);
+                transform: rotate(1deg);
+            }
         }
 
         .avatar::before {
             content: '';
             position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
+            top: -100%;
+            left: -100%;
+            width: 300%;
+            height: 300%;
             background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
             transform: rotate(45deg);
-            animation: shimmer 2s infinite;
+            animation: avatarShimmer 3s infinite;
         }
 
-        @keyframes shimmer {
+        @keyframes avatarShimmer {
             0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
             100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
         }
 
         .personal-info h3 {
-            font-size: 1.6rem;
-            font-weight: 800;
-            margin-bottom: 10px;
-            letter-spacing: 1px;
-            background: linear-gradient(45deg, #ffd700, #ff8c00, #ff6b6b);
+            font-size: 1.8rem;
+            font-weight: 900;
+            margin-bottom: 20px;
+            letter-spacing: 1.5px;
+            background: linear-gradient(45deg, #ffd700, #ff8c00, #ff6b6b, #48dbfb);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            animation: textGlow 2s ease-in-out infinite;
+            animation: nameGlow 3s ease-in-out infinite;
+            text-shadow: none;
         }
 
-        @keyframes textGlow {
-            0%, 100% { filter: drop-shadow(0 0 5px rgba(255,215,0,0.5)); }
-            50% { filter: drop-shadow(0 0 10px rgba(255,140,0,0.8)); }
+        @keyframes nameGlow {
+            0%, 100% { filter: drop-shadow(0 0 10px rgba(255,215,0,0.6)); }
+            50% { filter: drop-shadow(0 0 20px rgba(255,140,0,0.8)); }
         }
 
         .personal-info p {
-            margin: 8px 0;
-            font-size: 1rem;
+            margin: 12px 0;
+            font-size: 1.1rem;
             display: flex;
             align-items: center;
-            gap: 10px;
+            justify-content: center;
+            gap: 12px;
             transition: all 0.3s ease;
+            font-weight: 600;
         }
 
         .personal-info p:hover {
-            transform: translateX(5px);
+            transform: scale(1.05);
             color: #ffd700;
         }
 
         .personal-info .label {
-            font-weight: 700;
+            font-weight: 800;
             color: #ffd700;
-            text-shadow: 0 0 5px rgba(255,215,0,0.5);
+            text-shadow: 0 0 10px rgba(255,215,0,0.5);
         }
 
-        /* About Project & File Details at bottom */
+        .personal-info i {
+            color: #ffd700;
+            font-size: 1.3rem;
+        }
+
+        /* About section at bottom */
         .about-section {
-            position: absolute;
-            bottom: 20px;
-            left: 20px;
-            right: 20px;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 20px;
-            padding: 15px 20px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.25));
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 25px;
+            padding: 20px 25px;
             text-align: center;
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(15px);
+            cursor: pointer;
+            margin-top: 40px;
         }
 
         .about-section:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 5px 20px rgba(255, 215, 0, 0.3);
-            border-color: rgba(255, 215, 0, 0.5);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0.35));
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.4);
+            border-color: rgba(255, 215, 0, 0.6);
         }
 
         .about-section p {
             margin: 0;
-            font-size: 0.95rem;
-            font-weight: 600;
+            font-size: 1.1rem;
+            font-weight: 700;
             color: #ffd700;
-            cursor: pointer;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.3);
+        }
+
+        /* Right Content Area */
+        .content-area {
+            flex: 1;
+            margin-left: 320px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            position: relative;
+            z-index: 10;
         }
 
         /* Enhanced Main Card */
         .main-card {
-            background: rgba(255, 255, 255, 0.12);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-radius: 30px;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border-radius: 35px;
             padding: 60px;
             width: 100%;
-            max-width: 600px;
-            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            margin: 120px auto;
-            animation: slideInBounce 1s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            max-width: 650px;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.3);
+            border: 2px solid rgba(255, 255, 255, 0.25);
+            animation: cardEntrance 1.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
             position: relative;
-            z-index: 10;
             overflow: hidden;
-            margin-left: 350px;
         }
 
         .main-card::before {
@@ -239,8 +299,8 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
-            animation: cardShine 3s infinite;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+            animation: cardShine 4s infinite;
         }
 
         @keyframes cardShine {
@@ -248,102 +308,129 @@
             100% { left: 100%; }
         }
 
-        @keyframes slideInBounce {
-            0% { opacity: 0; transform: translateY(60px) scale(0.8); }
-            60% { opacity: 1; transform: translateY(-10px) scale(1.05); }
-            100% { opacity: 1; transform: translateY(0) scale(1); }
+        @keyframes cardEntrance {
+            0% { 
+                opacity: 0; 
+                transform: translateY(80px) scale(0.8) rotate(5deg); 
+            }
+            60% { 
+                opacity: 1; 
+                transform: translateY(-15px) scale(1.05) rotate(-2deg); 
+            }
+            100% { 
+                opacity: 1; 
+                transform: translateY(0) scale(1) rotate(0deg); 
+            }
         }
 
         h1 {
             text-align: center;
             font-weight: 900;
-            font-size: 2.5rem;
-            margin-bottom: 40px;
-            background: linear-gradient(45deg, #ffd700, #ff8c00, #ff6b6b, #48dbfb);
+            font-size: 2.8rem;
+            margin-bottom: 50px;
+            background: linear-gradient(45deg, #ffd700, #ff8c00, #ff6b6b, #48dbfb, #ff9ff3);
+            background-size: 300% 300%;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            text-shadow: none;
             position: relative;
             z-index: 2;
+            animation: titleAnimation 5s ease-in-out infinite;
+            letter-spacing: 2px;
+        }
+
+        @keyframes titleAnimation {
+            0%, 100% { 
+                background-position: 0% 50%;
+                transform: scale(1);
+            }
+            50% { 
+                background-position: 100% 50%;
+                transform: scale(1.02);
+            }
         }
 
         .form-label {
-            font-weight: 700;
-            margin-top: 20px;
+            font-weight: 800;
+            margin-top: 25px;
             display: flex;
             align-items: center;
-            gap: 10px;
-            font-size: 1.1rem;
+            gap: 12px;
+            font-size: 1.15rem;
             color: #fff;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            text-shadow: 0 3px 6px rgba(0,0,0,0.4);
         }
 
         .form-label i {
             color: #ffd700;
-            font-size: 1.2rem;
+            font-size: 1.3rem;
+            text-shadow: 0 0 10px rgba(255,215,0,0.5);
         }
 
-        .form-control, .form-control select {
+        .form-control, .form-select {
             background: rgba(255, 255, 255, 0.98) !important;
-            border: 2px solid transparent !important;
-            padding: 18px 24px;
+            border: 3px solid transparent !important;
+            padding: 20px 28px;
             color: #333;
-            font-weight: 600;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            font-weight: 700;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            border-radius: 16px;
-            font-size: 1rem;
+            border-radius: 20px;
+            font-size: 1.1rem;
+            position: relative;
+            z-index: 2;
         }
 
-        .form-control:focus {
+        .form-control:focus, .form-select:focus {
             background: #fff !important;
-            border: 2px solid #ffd700 !important;
-            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.3);
-            transform: translateY(-3px) scale(1.02);
+            border: 3px solid #ffd700 !important;
+            box-shadow: 0 15px 35px rgba(255, 215, 0, 0.4);
+            transform: translateY(-5px) scale(1.02);
+            outline: none;
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, #ff6b6b, #feca57, #48dbfb, #ff9ff3);
-            background-size: 300% 300%;
+            background: linear-gradient(135deg, #ff6b6b, #feca57, #48dbfb, #ff9ff3, #54a0ff);
+            background-size: 400% 400%;
             border: none;
-            padding: 20px;
-            font-weight: 700;
-            letter-spacing: 1.2px;
-            border-radius: 18px;
-            margin-top: 25px;
+            padding: 22px;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            border-radius: 25px;
+            margin-top: 35px;
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             text-transform: uppercase;
             position: relative;
             overflow: hidden;
-            animation: gradientShift 4s ease infinite;
+            animation: buttonGradient 6s ease infinite;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
         }
 
-        @keyframes gradientShift {
+        @keyframes buttonGradient {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
         }
 
         .btn-primary:hover {
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 15px 40px rgba(255, 107, 107, 0.4);
-            animation-duration: 1s;
+            transform: translateY(-8px) scale(1.05);
+            box-shadow: 0 25px 60px rgba(255, 107, 107, 0.5);
+            animation-duration: 2s;
         }
 
         .btn-primary:active {
-            transform: translateY(-2px) scale(1.02);
+            transform: translateY(-3px) scale(1.02);
         }
 
         .result {
-            margin-top: 50px;
-            padding: 40px;
-            background: linear-gradient(135deg, rgba(255, 215, 0, 0.15), rgba(255, 140, 0, 0.15));
-            border-radius: 25px;
-            border: 2px solid rgba(255, 215, 0, 0.3);
-            animation: resultPulse 2s infinite;
+            margin-top: 60px;
+            padding: 50px;
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 140, 0, 0.2));
+            border-radius: 30px;
+            border: 3px solid rgba(255, 215, 0, 0.4);
+            animation: resultAnimation 3s infinite;
             text-align: center;
-            backdrop-filter: blur(15px);
+            backdrop-filter: blur(20px);
             position: relative;
             overflow: hidden;
         }
@@ -351,12 +438,12 @@
         .result::before {
             content: '';
             position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(255,215,0,0.1), transparent);
-            animation: resultShimmer 3s infinite;
+            top: -100%;
+            left: -100%;
+            width: 300%;
+            height: 300%;
+            background: linear-gradient(45deg, transparent, rgba(255,215,0,0.15), transparent);
+            animation: resultShimmer 4s infinite;
         }
 
         @keyframes resultShimmer {
@@ -364,66 +451,73 @@
             100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
         }
 
-        @keyframes resultPulse {
-            0% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.6); }
-            70% { box-shadow: 0 0 0 20px rgba(255, 215, 0, 0); }
+        @keyframes resultAnimation {
+            0% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.7); }
+            70% { box-shadow: 0 0 0 30px rgba(255, 215, 0, 0); }
             100% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0); }
         }
 
         .result p {
-            margin-bottom: 15px;
-            font-size: 1.3rem;
-            opacity: 0.95;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
             position: relative;
             z-index: 2;
+            font-weight: 700;
         }
 
         .result strong {
-            font-size: 2.5rem;
-            background: linear-gradient(45deg, #ffd700, #ff8c00);
+            font-size: 3rem;
+            background: linear-gradient(45deg, #ffd700, #ff8c00, #ff6b6b);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             font-weight: 900;
             position: relative;
             z-index: 2;
-            animation: priceGlow 2s ease-in-out infinite;
+            animation: priceGlow 2.5s ease-in-out infinite;
+            letter-spacing: 3px;
         }
 
         @keyframes priceGlow {
-            0%, 100% { filter: drop-shadow(0 0 10px rgba(255,215,0,0.6)); }
-            50% { filter: drop-shadow(0 0 20px rgba(255,140,0,0.8)); }
+            0%, 100% { 
+                filter: drop-shadow(0 0 15px rgba(255,215,0,0.8));
+                transform: scale(1);
+            }
+            50% { 
+                filter: drop-shadow(0 0 25px rgba(255,140,0,1));
+                transform: scale(1.05);
+            }
         }
 
         /* Enhanced Modal Styling */
         .modal-content {
-            background: linear-gradient(135deg, rgba(30, 30, 50, 0.95), rgba(60, 60, 80, 0.95));
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 25px;
+            background: linear-gradient(135deg, rgba(20, 20, 40, 0.95), rgba(40, 40, 70, 0.95));
+            backdrop-filter: blur(25px);
+            border: 2px solid rgba(255, 255, 255, 0.25);
+            border-radius: 30px;
             overflow: hidden;
-            box-shadow: 0 25px 60px rgba(0,0,0,0.4);
+            box-shadow: 0 30px 80px rgba(0,0,0,0.5);
         }
 
         .modal-header {
-            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-            padding: 30px 35px;
-            background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 140, 0, 0.1));
+            border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+            padding: 35px 40px;
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.15), rgba(255, 140, 0, 0.15));
         }
 
         .modal-body {
-            padding: 35px;
-            font-size: 1.1rem;
-            line-height: 1.8;
+            padding: 40px;
+            font-size: 1.15rem;
+            line-height: 1.9;
         }
 
         .modal-title {
-            font-weight: 800;
-            font-size: 1.6rem;
-            background: linear-gradient(45deg, #ffd700, #ff8c00);
+            font-weight: 900;
+            font-size: 1.8rem;
+            background: linear-gradient(45deg, #ffd700, #ff8c00, #ff6b6b);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
@@ -431,99 +525,173 @@
         .btn-close {
             color: #fff;
             opacity: 0.8;
-            font-size: 1.2rem;
+            font-size: 1.4rem;
+            transition: all 0.3s ease;
         }
 
         .btn-close:hover {
             opacity: 1;
-            transform: scale(1.1);
+            transform: scale(1.15);
+            color: #ffd700;
         }
 
         .alert {
-            border-radius: 15px;
+            border-radius: 20px;
             border: none;
-            padding: 20px;
-            margin-top: 20px;
+            padding: 25px;
+            margin-top: 25px;
+            font-weight: 600;
         }
 
         .alert-info {
-            background: linear-gradient(135deg, rgba(64, 120, 255, 0.2), rgba(100, 150, 255, 0.2));
-            border-left: 4px solid #4078ff;
+            background: linear-gradient(135deg, rgba(64, 120, 255, 0.25), rgba(100, 150, 255, 0.25));
+            border-left: 5px solid #4078ff;
         }
 
         .alert-warning {
-            background: linear-gradient(135deg, rgba(255, 193, 7, 0.2), rgba(255, 150, 0, 0.2));
-            border-left: 4px solid #ffc107;
+            background: linear-gradient(135deg, rgba(255, 193, 7, 0.25), rgba(255, 150, 0, 0.25));
+            border-left: 5px solid #ffc107;
         }
 
-        /* Enhanced Responsive Design */
+        /* Responsive Design */
         @media (max-width: 1200px) {
             .personal-panel {
                 width: 280px;
-                padding: 30px 20px;
+            }
+            
+            .content-area {
+                margin-left: 280px;
             }
             
             .main-card {
-                max-width: 500px;
-                padding: 40px;
-                margin-left: 320px;
+                max-width: 550px;
+                padding: 45px;
             }
         }
 
         @media (max-width: 992px) {
+            .main-container {
+                flex-direction: column;
+            }
+
             .personal-panel {
-                width: 100%;
-                height: auto;
-                padding: 30px;
                 position: relative;
-                margin-bottom: 40px;
+                width: 100%;
+                min-height: auto;
+                padding: 30px;
                 border-right: none;
-                border-bottom: 1px solid rgba(255,255,255,0.2);
-                transform: none;
+                border-bottom: 2px solid rgba(255,255,255,0.2);
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
             }
 
             .contact-tag {
-                position: relative;
-                top: auto;
-                left: auto;
-                right: auto;
-                margin-bottom: 30px;
+                margin-bottom: 0;
+                margin-right: 20px;
+                flex-shrink: 0;
+            }
+
+            .center-content {
+                flex-direction: row;
+                gap: 20px;
+            }
+
+            .avatar {
+                width: 80px;
+                height: 80px;
+                font-size: 2rem;
+                margin-bottom: 0;
+            }
+
+            .personal-info {
+                text-align: left;
+            }
+
+            .personal-info h3 {
+                font-size: 1.4rem;
+                margin-bottom: 10px;
+            }
+
+            .personal-info p {
+                font-size: 0.9rem;
+                margin: 5px 0;
             }
 
             .about-section {
-                position: relative;
-                bottom: auto;
-                left: auto;
-                right: auto;
-                margin-top: 30px;
+                margin-top: 0;
+                margin-left: 20px;
+                flex-shrink: 0;
+            }
+
+            .about-section p {
+                font-size: 0.9rem;
+            }
+
+            .content-area {
+                margin-left: 0;
+                padding: 20px;
             }
 
             .main-card {
-                margin: 20px auto;
+                max-width: 100%;
                 padding: 30px 25px;
-                max-width: 95%;
-                margin-left: auto;
+                margin: 0;
             }
 
             h1 {
-                font-size: 2rem;
+                font-size: 2.2rem;
+                margin-bottom: 35px;
+            }
+
+            .form-label {
+                font-size: 1rem;
+            }
+
+            .form-control, .form-select {
+                padding: 15px 20px;
+                font-size: 1rem;
+            }
+
+            .btn-primary {
+                font-size: 1.1rem;
+                padding: 18px;
+            }
+
+            .result strong {
+                font-size: 2.5rem;
             }
         }
 
         @media (max-width: 576px) {
-            .main-card {
-                padding: 25px 20px;
-                border-radius: 20px;
-            }
-            
             .personal-panel {
-                padding: 25px 15px;
+                flex-direction: column;
+                padding: 20px;
             }
-            
+
+            .center-content {
+                flex-direction: column;
+                margin: 20px 0;
+            }
+
             .avatar {
                 width: 100px;
                 height: 100px;
                 font-size: 2.5rem;
+                margin-bottom: 15px;
+            }
+
+            .personal-info {
+                text-align: center;
+            }
+
+            .contact-tag, .about-section {
+                margin: 10px 0;
+            }
+
+            .main-card {
+                padding: 25px 20px;
+                border-radius: 25px;
             }
             
             h1 {
@@ -538,138 +706,76 @@
 </head>
 <body>
 
-    <!-- Left Personal Info Panel -->
-    <div class="personal-panel">
-        <!-- Contact for more info at TOP -->
-        <div class="contact-tag">
-            💡 Contact for more info
-        </div>
-        
-        <!-- Avatar -->
-        <div class="avatar"></div>
-        
-        <!-- Personal Info in CENTER -->
-        <div class="personal-info text-center">
-            <h3>Karanvir Singh</h3>
-            <p><i class="fas fa-phone"></i> <span class="label">Phone:</span> +91 6280215810</p>
-            <p><i class="fas fa-envelope"></i> <span class="label">Email:</span> singhkaranvir638@gmail.com</p>
+    <div class="main-container">
+        <!-- Left Personal Info Panel -->
+        <div class="personal-panel">
+            <!-- Contact for more info at TOP -->
+            <div class="contact-tag">
+                💡 Contact for more info
+            </div>
+            
+            <!-- Center content (avatar + personal info) -->
+            <div class="center-content">
+                <div class="avatar"></div>
+                
+                <div class="personal-info">
+                    <h3>Karanvir Singh</h3>
+                    <p><i class="fas fa-phone"></i> <span class="label">Phone:</span> +91 6280215810</p>
+                    <p><i class="fas fa-envelope"></i> <span class="label">Email:</span> singhkaranvir638@gmail.com</p>
+                </div>
+            </div>
+
+            <!-- About Project & File Details at BOTTOM -->
+            <div class="about-section" data-bs-toggle="modal" data-bs-target="#aboutModal">
+                <p>📊 About Project and File Details</p>
+            </div>
         </div>
 
-        <!-- About Project & File Details at BOTTOM -->
-        <div class="about-section" data-bs-toggle="modal" data-bs-target="#aboutModal">
-            <p>📊 About Project and File Details</p>
+        <!-- Right Content Area -->
+        <div class="content-area">
+            <!-- Main Prediction Card -->
+            <div class="main-card">
+                <h1><i class="fas fa-home me-3"></i>Delhi House Price Prediction</h1>
+
+                <form method="POST">
+                    <div class="mb-4">
+                        <label for="BHK" class="form-label"><i class="fas fa-bed"></i> BHK (Bedrooms)</label>
+                        <input type="number" class="form-control" id="BHK" name="BHK" min="1" max="10" required />
+                    </div>
+                    <div class="mb-4">
+                        <label for="Bathroom" class="form-label"><i class="fas fa-bath"></i> Bathrooms</label>
+                        <input type="number" class="form-control" id="Bathroom" name="Bathroom" min="1" max="10" required />
+                    </div>
+                    <div class="mb-4">
+                        <label for="Parking" class="form-label"><i class="fas fa-car"></i> Parking Spaces</label>
+                        <input type="number" class="form-control" id="Parking" name="Parking" min="0" max="5" required />
+                    </div>
+                    <div class="mb-4">
+                        <label for="Per_Sqft" class="form-label"><i class="fas fa-ruler-combined"></i> Area (Sq.ft)</label>
+                        <input type="number" step="0.01" class="form-control" id="Per_Sqft" name="Per_Sqft" min="0" required placeholder="Enter total area" />
+                    </div>
+                    <div class="mb-4">
+                        <label for="Furnished" class="form-label"><i class="fas fa-couch"></i> Furnished Status</label>
+                        <select class="form-select" id="Furnished" name="Furnished" required>
+                            <option value="" disabled selected>— Select Furnished Status —</option>
+                            <option value="1">✅ Yes, Fully Furnished</option>
+                            <option value="0">❌ No, Unfurnished</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">
+                        <i class="fas fa-magic me-2"></i> Predict My House Price
+                    </button>
+                </form>
+
+                {% if prediction %}
+                <div class="result">
+                    <p><i class="fas fa-tag"></i> Predicted Price in INR:</p>
+                    <strong>₹ {{ prediction }}</strong>
+                </div>
+                {% endif %}
+            </div>
         </div>
-    </div>
-
-    <!-- Main Prediction Card -->
-    <div class="main-card">
-        <h1><i class="fas fa-home me-3"></i>Delhi House Price Prediction</h1>
-
-        <form method="POST">
-            <div class="mb-3">
-                <label for="BHK" class="form-label"><i class="fas fa-bed"></i> BHK (Bedrooms)</label>
-                <input type="number" class="form-control" id="BHK" name="BHK" min="1" max="10" required />
-            </div>
-            <div class="mb-3">
-                <label for="Bathroom" class="form-label"><i class="fas fa-bath"></i> Bathrooms</label>
-                <input type="number" class="form-control" id="Bathroom" name="Bathroom" min="1" max="10" required />
-            </div>
-            <div class="mb-3">
-                <label for="Parking" class="form-label"><i class="fas fa-car"></i> Parking Spaces</label>
-                <input type="number" class="form-control" id="Parking" name="Parking" min="0" max="5" required />
-            </div>
-            <div class="mb-3">
-                <label for="Per_Sqft" class="form-label"><i class="fas fa-ruler-combined"></i> Area (Sq.ft)</label>
-                <input type="number" step="0.01" class="form-control" id="Per_Sqft" name="Per_Sqft" min="0" required placeholder="Enter total area" />
-            </div>
-            <div class="mb-3">
-                <label for="Furnished" class="form-label"><i class="fas fa-couch"></i> Furnished Status</label>
-                <select class="form-control" id="Furnished" name="Furnished" required>
-                    <option value="" disabled selected>— Select Furnished Status —</option>
-                    <option value="1">✅ Yes, Fully Furnished</option>
-                    <option value="0">❌ No, Unfurnished</option>
-                </select>
-            </div>
-            <button type="submit" class="btn btn-primary w-100">
-                <i class="fas fa-magic me-2"></i> Predict My House Price
-            </button>
-        </form>
-
-        {% if prediction %}
-        <div class="result mt-4">
-            <p><i class="fas fa-tag"></i> Predicted Price in INR:</p>
-            <strong>₹ {{ prediction }}</strong>
-        </div>
-        {% endif %}
     </div>
 
     <!-- About Project Modal -->
-    <div class="modal fade" id="aboutModal" tabindex="-1" aria-labelledby="aboutModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="aboutModalLabel"><i class="fas fa-info-circle me-2"></i> About Project and File Details</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div style="border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 25px; margin-bottom: 25px;">
-                        <h6 style="color: #ffd700; font-weight: 700; margin-bottom: 20px;">
-                            <i class="fas fa-rocket me-2"></i> About This Project:
-                        </h6>
-                        <p>
-                            <strong>Delhi House Price Prediction</strong> is an advanced machine learning-powered web application designed to provide accurate real estate valuations for properties in Delhi, India's capital city.
-                        </p>
-                        
-                        <h6 style="color: #ffd700; font-weight: 700; margin: 25px 0 15px 0;">
-                            <i class="fas fa-cogs me-2"></i> Key Features:
-                        </h6>
-                        <ul style="line-height: 1.8;">
-                            <li><strong>Smart Predictions:</strong> Uses trained ML models on real Delhi property data</li>
-                            <li><strong>Multiple Parameters:</strong> Considers BHK, bathrooms, parking, area, and furnishing</li>
-                            <li><strong>Instant Results:</strong> Get price estimates in seconds, not days</li>
-                            <li><strong>User-Friendly Interface:</strong> Beautiful, responsive design for all devices</li>
-                            <li><strong>Accurate Valuations:</strong> Based on current market trends and historical data</li>
-                        </ul>
-                        
-                        <div class="alert alert-info">
-                            <i class="fas fa-lightbulb me-2"></i> <strong>Pro Tip:</strong> Try different combinations of features to understand how each parameter affects property valuation in Delhi's dynamic real estate market!
-                        </div>
-                    </div>
-
-                    <div>
-                        <h6 style="color: #ffd700; font-weight: 700; margin-bottom: 20px;">
-                            <i class="fas fa-folder-open me-2"></i> Project Structure & Files:
-                        </h6>
-                        <ul style="line-height: 2;">
-                            <li><strong>app.py</strong> - Main Flask application with ML model integration</li>
-                            <li><strong>model.pkl</strong> - Trained machine learning model for price prediction</li>
-                            <li><strong>templates/index.html</strong> - Frontend interface with enhanced styling</li>
-                            <li><strong>static/</strong> - CSS, JS, and image assets</li>
-                            <li><strong>dataset.csv</strong> - Training data from Delhi real estate market</li>
-                            <li><strong>requirements.txt</strong> - Python dependencies and packages</li>
-                        </ul>
-                        
-                        <h6 style="color: #ffd700; font-weight: 700; margin: 30px 0 20px 0;">
-                            <i class="fas fa-code me-2"></i> Technology Stack:
-                        </h6>
-                        <p>Built with <strong>Python Flask</strong> backend, <strong>Machine Learning</strong> algorithms, <strong>Bootstrap 5</strong> frontend, and enhanced with modern <strong>CSS3 animations</strong> and <strong>JavaScript</strong> interactions.</p>
-                        
-                        <div class="alert alert-warning">
-                            <i class="fas fa-question-circle me-2"></i> <strong>Need Help or Found an Issue?</strong><br>
-                            Whether you've discovered a bug, want to suggest a new feature, need technical support, or just want to share feedback - I'm here to help!
-                        </div>
-                    </div>
-                    
-                    <p style="text-align: center; margin-top: 30px; font-style: italic;">
-                        Developed with ❤️ and ☕ by <strong style="color: #ffd700;">Karanvir Singh</strong><br>
-                        <small>Bridging technology and real estate for smarter decisions</small>
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Bootstrap Bundle JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+    <div class="modal fade" id="aboutModal" tab
