@@ -11,236 +11,33 @@
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
-        /* Ultra Attractive Animated Background */
+        /* GIF Background */
         body {
             margin: 0;
             padding: 0;
             font-family: 'Poppins', sans-serif;
-            background: linear-gradient(45deg, #ff0084, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57, #ff9ff3, #54a0ff, #5f27cd, #00d2d3);
-            background-size: 1000% 1000%;
-            animation: superGradient 20s ease infinite;
+            background-image: url('https://i.gifer.com/7efs.gif');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
             color: #fff;
             min-height: 100vh;
             overflow-x: hidden;
             position: relative;
         }
 
-        @keyframes superGradient {
-            0% {
-                background-position: 0% 0%;
-            }
-            25% {
-                background-position: 100% 0%;
-            }
-            50% {
-                background-position: 100% 100%;
-            }
-            75% {
-                background-position: 0% 100%;
-            }
-            100% {
-                background-position: 0% 0%;
-            }
-        }
-
-        /* Ultra Attractive Animated Background */
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: 'Poppins', sans-serif;
-            background: linear-gradient(45deg, #ff0084, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57, #ff9ff3, #54a0ff, #5f27cd, #00d2d3);
-            background-size: 1000% 1000%;
-            animation: superGradient 20s ease infinite;
-            color: #fff;
-            min-height: 100vh;
-            overflow-x: hidden;
-            position: relative;
-        }
-
-        @keyframes superGradient {
-            0% {
-                background-position: 0% 0%;
-            }
-            25% {
-                background-position: 100% 0%;
-            }
-            50% {
-                background-position: 100% 100%;
-            }
-            75% {
-                background-position: 0% 100%;
-            }
-            100% {
-                background-position: 0% 0%;
-            }
-        }
-
-        /* Aurora Wave Layer */
+        /* Dark overlay to make text more readable */
         body::before {
             content: "";
             position: fixed;
             top: 0;
             left: 0;
-            width: 200%;
-            height: 200%;
-            background: 
-                radial-gradient(ellipse at 10% 20%, rgba(255, 0, 132, 0.4) 0%, transparent 70%),
-                radial-gradient(ellipse at 80% 80%, rgba(78, 205, 196, 0.5) 0%, transparent 70%),
-                radial-gradient(ellipse at 40% 40%, rgba(255, 159, 243, 0.4) 0%, transparent 70%),
-                radial-gradient(ellipse at 90% 10%, rgba(254, 202, 87, 0.5) 0%, transparent 70%),
-                radial-gradient(ellipse at 20% 70%, rgba(84, 160, 255, 0.4) 0%, transparent 70%),
-                conic-gradient(from 0deg at 50% 50%, rgba(255, 107, 107, 0.3) 0deg, rgba(72, 219, 251, 0.3) 120deg, rgba(255, 159, 243, 0.3) 240deg, rgba(255, 107, 107, 0.3) 360deg);
-            background-size: 1000px 1000px, 800px 800px, 1200px 1200px, 600px 600px, 900px 900px, 100% 100%;
-            animation: auroraWave 35s ease-in-out infinite;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.6), rgba(20, 20, 50, 0.7));
             pointer-events: none;
             z-index: 0;
-            transform: rotate(-15deg);
-        }
-
-        @keyframes auroraWave {
-            0%, 100% {
-                transform: translateX(-100px) translateY(-50px) rotate(-15deg) scale(1);
-                opacity: 0.8;
-            }
-            25% {
-                transform: translateX(50px) translateY(-100px) rotate(-5deg) scale(1.1);
-                opacity: 1;
-            }
-            50% {
-                transform: translateX(100px) translateY(50px) rotate(-25deg) scale(0.9);
-                opacity: 0.6;
-            }
-            75% {
-                transform: translateX(-50px) translateY(100px) rotate(-10deg) scale(1.05);
-                opacity: 0.9;
-            }
-        }
-
-        /* Magical Sparkles & Geometric Shapes Layer */
-        body::after {
-            content: "";
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: 
-                /* Twinkling stars */
-                radial-gradient(circle at 15% 15%, rgba(255, 255, 255, 1) 2px, transparent 2px),
-                radial-gradient(circle at 85% 25%, rgba(255, 215, 0, 1) 1px, transparent 1px),
-                radial-gradient(circle at 65% 75%, rgba(255, 255, 255, 0.9) 3px, transparent 3px),
-                radial-gradient(circle at 25% 85%, rgba(255, 107, 107, 1) 2px, transparent 2px),
-                radial-gradient(circle at 95% 95%, rgba(72, 219, 251, 1) 1px, transparent 1px),
-                radial-gradient(circle at 5% 65%, rgba(255, 159, 243, 1) 2px, transparent 2px),
-                radial-gradient(circle at 75% 5%, rgba(150, 206, 180, 0.9) 3px, transparent 3px),
-                radial-gradient(circle at 45% 55%, rgba(254, 202, 87, 1) 1px, transparent 1px),
-                /* Floating hexagons */
-                conic-gradient(from 30deg at 30% 30%, transparent 60deg, rgba(255, 255, 255, 0.2) 120deg, transparent 180deg),
-                conic-gradient(from 60deg at 70% 70%, transparent 60deg, rgba(255, 107, 107, 0.3) 120deg, transparent 180deg),
-                conic-gradient(from 90deg at 20% 80%, transparent 60deg, rgba(72, 219, 251, 0.25) 120deg, transparent 180deg);
-            background-size: 
-                400px 400px, 350px 350px, 500px 500px, 450px 450px, 300px 300px, 550px 550px, 280px 280px, 420px 420px,
-                200px 200px, 250px 250px, 180px 180px;
-            animation: cosmicDance 20s linear infinite;
-            pointer-events: none;
-            z-index: 1;
-            opacity: 0.8;
-        }
-
-        @keyframes cosmicDance {
-            0%, 100% {
-                transform: translateX(0px) translateY(0px) rotate(0deg) scale(1);
-                opacity: 0.8;
-            }
-            20% {
-                transform: translateX(-30px) translateY(-20px) rotate(72deg) scale(1.1);
-                opacity: 1;
-            }
-            40% {
-                transform: translateX(25px) translateY(-35px) rotate(144deg) scale(0.9);
-                opacity: 0.6;
-            }
-            60% {
-                transform: translateX(-15px) translateY(30px) rotate(216deg) scale(1.05);
-                opacity: 0.9;
-            }
-            80% {
-                transform: translateX(20px) translateY(15px) rotate(288deg) scale(0.95);
-                opacity: 0.7;
-            }
-        }
-
-        /* Additional Floating Elements Layer */
-        .floating-elements {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 2;
-            overflow: hidden;
-        }
-
-        .floating-elements::before {
-            content: '';
-            position: absolute;
-            width: 100px;
-            height: 100px;
-            background: linear-gradient(45deg, rgba(255, 107, 107, 0.3), rgba(255, 159, 243, 0.3));
-            border-radius: 50%;
-            top: 10%;
-            left: 20%;
-            animation: float1 25s ease-in-out infinite;
-            filter: blur(2px);
-        }
-
-        .floating-elements::after {
-            content: '';
-            position: absolute;
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(135deg, rgba(72, 219, 251, 0.4), rgba(84, 160, 255, 0.4));
-            border-radius: 50%;
-            top: 60%;
-            right: 15%;
-            animation: float2 30s ease-in-out infinite reverse;
-            filter: blur(1px);
-        }
-
-        @keyframes float1 {
-            0%, 100% {
-                transform: translateX(0px) translateY(0px) scale(1) rotate(0deg);
-                opacity: 0.6;
-            }
-            33% {
-                transform: translateX(100px) translateY(-50px) scale(1.2) rotate(120deg);
-                opacity: 0.8;
-            }
-            66% {
-                transform: translateX(-80px) translateY(80px) scale(0.8) rotate(240deg);
-                opacity: 0.4;
-            }
-        }
-
-        @keyframes float2 {
-            0%, 100% {
-                transform: translateX(0px) translateY(0px) scale(1) rotate(0deg);
-                opacity: 0.7;
-            }
-            50% {
-                transform: translateX(-120px) translateY(-100px) scale(1.3) rotate(180deg);
-                opacity: 0.9;
-            }
-        }
-
-        @keyframes geometricMove {
-            0%, 100% {
-                background-position: 0% 0%, 100% 100%;
-            }
-            50% {
-                background-position: 100% 100%, 0% 0%;
-            }
         }
 
         /* Container to hold everything */
@@ -891,8 +688,6 @@
     </style>
 </head>
 <body>
-    <!-- Floating Elements Background Layer -->
-    <div class="floating-elements"></div>
 
     <div class="main-container">
         <!-- Left Personal Info Panel -->
@@ -946,4 +741,30 @@
                         <input type="number" step="0.01" class="form-control" id="Per_Sqft" name="Per_Sqft" min="0" required placeholder="Enter total area" />
                     </div>
                     <div class="mb-4">
-                        <label for="Furnished" class
+                        <label for="Furnished" class="form-label"><i class="fas fa-couch"></i> Furnished Status</label>
+                        <select class="form-select" id="Furnished" name="Furnished" required>
+                            <option value="" disabled selected>— Select Furnished Status —</option>
+                            <option value="1">✅ Yes, Fully Furnished</option>
+                            <option value="0">❌ No, Unfurnished</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">
+                        <i class="fas fa-magic me-2"></i> Predict My House Price
+                    </button>
+                </form>
+
+                {% if prediction %}
+                <div class="result">
+                    <p><i class="fas fa-tag"></i> Predicted Price in INR:</p>
+                    <strong>₹ {{ prediction }}</strong>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
